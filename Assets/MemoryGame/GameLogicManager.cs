@@ -114,4 +114,9 @@ public class GameLogicManager : MonoBehaviour
       return false;
     }
 
+    public void LoadSettingsMenu()
+    {
+      SceneManager.LoadScene("MemoryGameSettings");
+    }
+
 }
