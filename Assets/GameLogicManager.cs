@@ -6,6 +6,7 @@ public class GameLogicManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] memoryCards;
     [SerializeField] private GameObject[] pictureCards;
+    [SerializeField] private SpriteRenderer[] spriteRenderers;
 
     //Image pairings
     private Dictionary<string, GameObject> colorPairings = new Dictionary<string, GameObject>();
@@ -17,12 +18,6 @@ public class GameLogicManager : MonoBehaviour
     private int totalFlipped = 0;
     // Keep track of paired status of memoryCards
     private HashSet<string> isPaired = new HashSet<string>();
-
-    private Color GetRandomColor()
-    {
-      Debug.Log(new Color(Random.Range(0.1f, 1f), Random.Range(0.1f, 1f), Random.Range(0f, 1f)));
-      return new Color(Random.Range(0.1f, 1f), Random.Range(0.1f, 1f), Random.Range(0.1f, 1f));
-    }
 
     private void Start()
     {
@@ -37,10 +32,17 @@ public class GameLogicManager : MonoBehaviour
         allPairs[i * 2] = firstNum;
         allPairs[i * 2 + 1] = secondNum;
 
-        // Set the colors
-        Color newColor = GetRandomColor();
-        pictureCards[i * 2].GetComponent<SpriteRenderer>().color = newColor;
-        pictureCards[i * 2 + 1].GetComponent<SpriteRenderer>().color = newColor;
+        Vector3 scaleChange = new Vector3(-1f, -1f, -1f);
+        // Set the first sprite image
+        SpriteRenderer firstSpriteRenderer = pictureCards[i * 2].GetComponent<SpriteRenderer>();
+        firstSpriteRenderer.sprite = spriteRenderers[i].sprite;
+        pictureCards[i * 2].transform.localScale += scaleChange;
+
+        // Set the second sprite Image
+        SpriteRenderer secondSpriteRenderer = pictureCards[i * 2 + 1].GetComponent<SpriteRenderer>();
+        secondSpriteRenderer.sprite = spriteRenderers[i].sprite;
+        pictureCards[i * 2 + 1].transform.localScale += scaleChange;
+
         colorPairings.Add(firstNum.ToString(), pictureCards[i * 2]);
         colorPairings.Add(secondNum.ToString(), pictureCards[i * 2 + 1]);
       }
