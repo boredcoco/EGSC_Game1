@@ -1321,10 +1321,10 @@ MonoBehaviour:
   - {fileID: 326162218}
   - {fileID: 1793472639}
   - {fileID: 1369997028}
-  spriteRenderers:
-  - {fileID: 1988442907}
-  - {fileID: 232629312}
-  - {fileID: 1549704973}
+  filePaths:
+  - Images/egg
+  - Images/apple
+  - Images/tomato
   scoreText: {fileID: 329009728}
 --- !u!1 &1686059597
 GameObject:

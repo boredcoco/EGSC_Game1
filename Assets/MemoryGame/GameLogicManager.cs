@@ -8,7 +8,7 @@ public class GameLogicManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] memoryCards;
     [SerializeField] private GameObject[] pictureCards;
-    [SerializeField] private SpriteRenderer[] spriteRenderers;
+    [SerializeField] private string[] filePaths;
 
     // Score updates
     [SerializeField] private TMP_Text scoreText;
@@ -38,21 +38,21 @@ public class GameLogicManager : MonoBehaviour
         allPairs[i * 2 + 1] = secondNum;
 
         Vector3 scaleChange = new Vector3(-1f, -1f, -1f);
+
         // Set the first sprite image
-        SpriteRenderer firstSpriteRenderer = pictureCards[i * 2].GetComponent<SpriteRenderer>();
-        firstSpriteRenderer.sprite = spriteRenderers[i].sprite;
+        Sprite firstSprite = Resources.Load<Sprite>(filePaths[i]);
+        pictureCards[i * 2].GetComponent<SpriteRenderer>().sprite = firstSprite;
         pictureCards[i * 2].transform.localScale += scaleChange;
 
         // Set the second sprite Image
-        SpriteRenderer secondSpriteRenderer = pictureCards[i * 2 + 1].GetComponent<SpriteRenderer>();
-        secondSpriteRenderer.sprite = spriteRenderers[i].sprite;
+        Sprite secondSprite = Resources.Load<Sprite>(filePaths[i]);
+        pictureCards[i * 2 + 1].GetComponent<SpriteRenderer>().sprite = secondSprite;
         pictureCards[i * 2 + 1].transform.localScale += scaleChange;
 
         colorPairings.Add(firstNum.ToString(), pictureCards[i * 2]);
         colorPairings.Add(secondNum.ToString(), pictureCards[i * 2 + 1]);
       }
       System.Array.Sort(allPairs);
-      Debug.Log(allPairs);
       // Set the unique nums to the memoryCards
       for (int i = 0; i < 6; i++)
       {
