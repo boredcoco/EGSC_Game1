@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameLogicManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] memoryCards;
     [SerializeField] private GameObject[] pictureCards;
     [SerializeField] private SpriteRenderer[] spriteRenderers;
+
+    // Score updates
+    [SerializeField] private TMP_Text scoreText;
 
     //Image pairings
     private Dictionary<string, GameObject> colorPairings = new Dictionary<string, GameObject>();
@@ -55,6 +60,15 @@ public class GameLogicManager : MonoBehaviour
         GameObject obj = colorPairings[id];
         memoryCards[i].GetComponent<MemoryCard>().Initialize(id, obj);
       }
+
+      // Set score to zero initially
+      UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+      int newScore =  (int) Mathf.Floor(isPaired.Count / 2f);
+      scoreText.text = "Score: " + newScore.ToString() + "/3";
     }
 
     // check if flip was successful
@@ -75,6 +89,11 @@ public class GameLogicManager : MonoBehaviour
         isPaired.Add(cardNeeded);
         isPaired.Add(cardId);
         totalFlipped = 0;
+      }
+      UpdateScore();
+      if (isPaired.Count == 6)
+      {
+        SceneManager.LoadScene("GameOver");
       }
       return true;
     }
