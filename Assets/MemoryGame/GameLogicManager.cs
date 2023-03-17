@@ -39,14 +39,16 @@ public class GameLogicManager : MonoBehaviour
 
         Vector3 scaleChange = new Vector3(-1f, -1f, -1f);
 
+        //Get the key
+        string key = "spriteSelected" + i.ToString();
+
         // Set the first sprite image
-        Sprite firstSprite = Resources.Load<Sprite>(filePaths[i]);
-        pictureCards[i * 2].GetComponent<SpriteRenderer>().sprite = firstSprite;
+        Sprite sprite = Resources.Load<Sprite>(PlayerPrefs.GetString(key, filePaths[i]));
+        pictureCards[i * 2].GetComponent<SpriteRenderer>().sprite = sprite;
         pictureCards[i * 2].transform.localScale += scaleChange;
 
         // Set the second sprite Image
-        Sprite secondSprite = Resources.Load<Sprite>(filePaths[i]);
-        pictureCards[i * 2 + 1].GetComponent<SpriteRenderer>().sprite = secondSprite;
+        pictureCards[i * 2 + 1].GetComponent<SpriteRenderer>().sprite = sprite;
         pictureCards[i * 2 + 1].transform.localScale += scaleChange;
 
         colorPairings.Add(firstNum.ToString(), pictureCards[i * 2]);
