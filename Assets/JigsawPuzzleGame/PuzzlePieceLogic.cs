@@ -10,6 +10,7 @@ public class PuzzlePieceLogic : MonoBehaviour
     private bool inRightPosition = false;
 
     private LogicManager logicManager;
+    private string pieceId;
 
     private void Start()
     {
@@ -19,6 +20,9 @@ public class PuzzlePieceLogic : MonoBehaviour
 
       // Set the random position
       transform.position = logicManager.GenerateRandomPoint();
+
+      // Set the piece unique id
+      pieceId = Random.Range(0f, 1000000000f).ToString();
     }
 
     private void Update()
@@ -31,6 +35,7 @@ public class PuzzlePieceLogic : MonoBehaviour
       {
         inRightPosition = false;
       }
+      logicManager.HandlePieceUpdate(pieceId, inRightPosition);
     }
 
     private void OnMouseDrag()

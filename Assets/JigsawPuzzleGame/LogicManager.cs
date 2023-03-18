@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LogicManager : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class LogicManager : MonoBehaviour
     [SerializeField] private float upper;
     [SerializeField] private float lower;
 
+    // Keep track of how many pieces are fitted;
+    private HashSet<string> isInRightPosition = new HashSet<string>();
+    private int totalPoints = 0;
+
     public bool IsWithinBounds(Vector3 pos)
     {
       if (pos.x > rightBounds.position.x - offset
@@ -34,6 +39,24 @@ public class LogicManager : MonoBehaviour
     {
       float posX = Random.Range(left + offset, right - offset);
       float posY = Random.Range(lower + offset, upper - offset);
+
+      // Increment the total number of puzzle pieces
+      totalPoints += 1;
       return new Vector3(posX, posY, 0);
+    }
+
+    public void HandlePieceUpdate(string pieceId, bool inPos)
+    {
+      if (inPos)
+      {
+        isInRightPosition.Add(pieceId);
+      } else
+      {
+        isInRightPosition.Remove(pieceId);
+      }
+      if (isInRightPosition.Count >= totalPoints)
+      {
+        SceneManager.LoadScene("GameOver");
+      }
     }
 }
