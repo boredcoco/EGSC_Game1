@@ -9,4 +9,9 @@ public class GameStartHandler : MonoBehaviour
     {
       SceneManager.LoadScene("MemoryGame");
     }
+
+    public void LoadJigsawGame()
+    {
+      SceneManager.LoadScene("JigsawPuzzle");
+    }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MemoryGameSettings.unity
     guid: 83e2a843617df4cb6813e08e1cd0bc63
+  - enabled: 1
+    path: Assets/Scenes/JigsawPuzzle.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

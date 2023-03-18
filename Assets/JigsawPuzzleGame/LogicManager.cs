@@ -10,7 +10,13 @@ public class LogicManager : MonoBehaviour
     [SerializeField] private Transform upperBounds;
     [SerializeField] private Transform lowerBounds;
 
-    [SerializeField] private int offset = 1;
+    [SerializeField] private float offset = 1;
+
+    // Boundaries for board
+    [SerializeField] private float right;
+    [SerializeField] private float left;
+    [SerializeField] private float upper;
+    [SerializeField] private float lower;
 
     public bool IsWithinBounds(Vector3 pos)
     {
@@ -22,5 +28,12 @@ public class LogicManager : MonoBehaviour
         return false;
       }
       return true;
+    }
+
+    public Vector3 GenerateRandomPoint()
+    {
+      float posX = Random.Range(left + offset, right - offset);
+      float posY = Random.Range(lower + offset, upper - offset);
+      return new Vector3(posX, posY, 0);
     }
 }

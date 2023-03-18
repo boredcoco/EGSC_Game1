@@ -7,8 +7,7 @@ public class PuzzlePieceLogic : MonoBehaviour
     private Camera cam;
 
     private Vector3 rightPosition;
-
-    private Vector3 originalMousePos;
+    private bool inRightPosition = false;
 
     private LogicManager logicManager;
 
@@ -17,11 +16,21 @@ public class PuzzlePieceLogic : MonoBehaviour
       cam = Camera.main;
       rightPosition = transform.position;
       logicManager = GameObject.Find("LogicManager").GetComponent<LogicManager>();
+
+      // Set the random position
+      transform.position = logicManager.GenerateRandomPoint();
     }
 
-    private void OnMouseDown()
+    private void Update()
     {
-      originalMousePos = Input.mousePosition;
+      if (Vector3.Distance(transform.position, rightPosition) < 0.5f)
+      {
+        transform.position = rightPosition;
+        inRightPosition = true;
+      } else
+      {
+        inRightPosition = false;
+      }
     }
 
     private void OnMouseDrag()
