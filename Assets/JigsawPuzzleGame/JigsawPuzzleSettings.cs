@@ -15,15 +15,6 @@ public class JigsawPuzzleSettings : MonoBehaviour
 
     private string key = "puzzlePicture"; // key used to access PlayerPrefs
     private int currentIndex = 0;
-    private string currentFilepath = "";
-
-    private void Start()
-    {
-      if (filepaths.Length != 0)
-      {
-        currentFilepath = filepaths[0];
-      }
-    }
 
     public void ClickNext()
     {
@@ -31,6 +22,9 @@ public class JigsawPuzzleSettings : MonoBehaviour
       {
         return;
       }
+      // Increment the currentIndex
+      currentIndex += 1;
+
       if (currentIndex >= displayText.Length || currentIndex >= filepaths.Length)
       {
         currentIndex = 0;
@@ -40,18 +34,17 @@ public class JigsawPuzzleSettings : MonoBehaviour
       // Load the imageDisplayed
       Sprite sprite = Resources.Load<Sprite>(filepaths[currentIndex]);
       imageDisplayed.sprite = sprite;
-      currentFilepath = filepaths[currentIndex];
-
-      // Increment the currentIndex
-      currentIndex += 1;
     }
 
     public void ClickBack()
     {
-      if (displayText.Length < 0 || filepaths.Length < 0)
+      if (displayText.Length == 0 || filepaths.Length == 0)
       {
         return;
       }
+      // Decrement the currentIndex
+      currentIndex -= 1;
+
       if (currentIndex < 0 || currentIndex < 0)
       {
         currentIndex = Mathf.Min(displayText.Length, filepaths.Length) - 1;
@@ -61,15 +54,11 @@ public class JigsawPuzzleSettings : MonoBehaviour
       // Load the imageDisplayed
       Sprite sprite = Resources.Load<Sprite>(filepaths[currentIndex]);
       imageDisplayed.sprite = sprite;
-      currentFilepath = filepaths[currentIndex];
-
-      // Increment the currentIndex
-      currentIndex -= 1;
     }
 
     public void ConfirmSelection()
     {
-      PlayerPrefs.SetString(key, currentFilepath);
+      PlayerPrefs.SetString(key, filepaths[currentIndex]);
       SceneManager.LoadScene("JigsawPuzzle");
     }
 }
