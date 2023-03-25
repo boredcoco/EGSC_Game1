@@ -10,6 +10,14 @@ public class MemoryCard : MonoBehaviour
     private string uniqueId = null;
     private bool isFlipped = false;
 
+    // flipping animations
+    private Animator anim;
+
+    private void Start()
+    {
+      anim = GetComponent<Animator>();
+    }
+
     public void Initialize(string id, GameObject pic)
     {
       uniqueId = id;
@@ -18,12 +26,24 @@ public class MemoryCard : MonoBehaviour
       picture.SetActive(false);
     }
 
+    private void setPicActive()
+    {
+      picture.SetActive(true);
+    }
+
+    private void setPicInactive()
+    {
+      picture.SetActive(false);
+    }
+
     private void handleOpen()
     {
       if (gameLogicManager.FlipCard(uniqueId))
       {
+        anim.ResetTrigger("isFlip");
+        anim.SetTrigger("isFlip");
         isFlipped = true;
-        picture.SetActive(true);
+        Invoke("setPicActive", 0.3f);
       }
     }
 
@@ -31,8 +51,10 @@ public class MemoryCard : MonoBehaviour
     {
       if (gameLogicManager.UnflipCard(uniqueId))
       {
+        anim.ResetTrigger("isFlip");
+        anim.SetTrigger("isFlip");
         isFlipped = false;
-        picture.SetActive(false);
+        Invoke("setPicInactive", 0.3f);
       }
     }
 
@@ -45,4 +67,17 @@ public class MemoryCard : MonoBehaviour
           handleClose();
         }
     }
+
+/*
+    private void FixedUpdate()
+    {
+      if (isFlipped)
+      {
+        picture.SetActive(true);
+      } else
+      {
+        picture.SetActive(false);
+      }
+    }
+*/
 }
