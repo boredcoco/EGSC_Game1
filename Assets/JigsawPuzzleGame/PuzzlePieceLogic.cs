@@ -17,6 +17,9 @@ public class PuzzlePieceLogic : MonoBehaviour
     private SortingGroup sortingGroup;
     private int initialOrder = 0;
 
+    // related to shadow effects
+    [SerializeField] private GameObject shadow;
+
     private void Start()
     {
       cam = Camera.main;
@@ -47,6 +50,11 @@ public class PuzzlePieceLogic : MonoBehaviour
       logicManager.HandlePieceUpdate(pieceId, inRightPosition);
     }
 
+    private void OnMouseDown()
+    {
+      shadow.SetActive(true);
+    }
+
     private void OnMouseDrag()
     {
       // Sort out the cam to screen world point thing
@@ -71,5 +79,8 @@ public class PuzzlePieceLogic : MonoBehaviour
     {
       // reset the order
       sortingGroup.sortingOrder = initialOrder;
+
+      // No more shadow
+      shadow.SetActive(false);
     }
 }
