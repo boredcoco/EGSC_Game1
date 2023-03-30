@@ -8,15 +8,12 @@ public class PuzzlePicture : MonoBehaviour
 
     private string defaultImageFilePath = "Puzzlepics/mbs";
 
+    private SpriteRenderer renderer;
+
     private void Start()
     {
         Sprite sprite = Resources.Load<Sprite>(PlayerPrefs.GetString(key, defaultImageFilePath));
-        GetComponent<SpriteRenderer>().sprite = sprite;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        renderer = GetComponent<SpriteRenderer>();
+        renderer.sprite = sprite;
     }
 }

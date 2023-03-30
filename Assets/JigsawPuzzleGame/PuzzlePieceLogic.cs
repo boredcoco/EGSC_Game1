@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PuzzlePieceLogic : MonoBehaviour
 {
@@ -11,6 +12,13 @@ public class PuzzlePieceLogic : MonoBehaviour
 
     private LogicManager logicManager;
     private string pieceId;
+
+    // related to layering
+    private SortingGroup sortingGroup;
+    private int initialOrder = 0;
+
+    // related to shadow effects
+    [SerializeField] private GameObject shadow;
 
     private void Start()
     {
@@ -23,6 +31,10 @@ public class PuzzlePieceLogic : MonoBehaviour
 
       // Set the piece unique id
       pieceId = Random.Range(0f, 1000000000f).ToString();
+
+      // get child
+      sortingGroup = GetComponent<SortingGroup>();
+      initialOrder = sortingGroup.sortingOrder;
     }
 
     private void Update()
@@ -36,6 +48,11 @@ public class PuzzlePieceLogic : MonoBehaviour
         inRightPosition = false;
       }
       logicManager.HandlePieceUpdate(pieceId, inRightPosition);
+    }
+
+    private void OnMouseDown()
+    {
+      shadow.SetActive(true);
     }
 
     private void OnMouseDrag()
@@ -53,5 +70,17 @@ public class PuzzlePieceLogic : MonoBehaviour
       {
         transform.position = point;
       }
+
+      // Change order in layer
+      sortingGroup.sortingOrder = 20;
+    }
+
+    private void OnMouseUp()
+    {
+      // reset the order
+      sortingGroup.sortingOrder = initialOrder;
+
+      // No more shadow
+      shadow.SetActive(false);
     }
 }
