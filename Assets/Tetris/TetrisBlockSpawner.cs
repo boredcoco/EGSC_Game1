@@ -33,6 +33,7 @@ public class TetrisBlockSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+      /*
       if (currentBlock == null)
       {
          return;
@@ -55,6 +56,7 @@ public class TetrisBlockSpawner : MonoBehaviour
       {
         currentBlock.transform.position = currentBlock.transform.position + directionZ;
       }
+      */
     }
 
     private bool checkBoundsWhenMove(Vector3 direction, Vector3 position)
@@ -62,6 +64,7 @@ public class TetrisBlockSpawner : MonoBehaviour
       RaycastHit hit;
       if (Physics.Raycast(position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
       {
+        Debug.Log(hit.collider.gameObject);
           if (hit.distance < 1f)
           {
             return true;
@@ -87,5 +90,10 @@ public class TetrisBlockSpawner : MonoBehaviour
     public void ClearCurrentBlock()
     {
       currentBlock = null;
+    }
+
+    public bool isCurrentBlock(GameObject block)
+    {
+      return block == currentBlock;
     }
 }
