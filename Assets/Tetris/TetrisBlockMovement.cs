@@ -15,6 +15,7 @@ public class TetrisBlockMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+      // downward movement
       Vector3 force = new Vector3(0, -1 * movementSpeed, 0);
       rb.AddForce(force, ForceMode.VelocityChange);
     }
