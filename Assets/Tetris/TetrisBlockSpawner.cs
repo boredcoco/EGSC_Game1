@@ -41,14 +41,37 @@ public class TetrisBlockSpawner : MonoBehaviour
       // Move along x-axis
       float horizontalInput = Input.GetAxis("Horizontal");
       int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
-      Vector3 finalPosX = currentBlock.transform.position + new Vector3(operationX, 0, 0);
-      currentBlock.transform.position = finalPosX;
+      Vector3 directionX = new Vector3(operationX, 0, 0);
+      if (!checkBoundsWhenMove(directionX, currentBlock.transform.position))
+      {
+        currentBlock.transform.position = currentBlock.transform.position + directionX;
+      }
 
       // Move along z-axis
       float verticalInput = Input.GetAxis("Vertical");
       int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
-      Vector3 finalPosZ = currentBlock.transform.position + new Vector3(0, 0, operationZ);
-      currentBlock.transform.position = finalPosZ;
+      Vector3 directionZ = new Vector3(0, 0, operationZ);
+      if (!checkBoundsWhenMove(directionZ, currentBlock.transform.position))
+      {
+        currentBlock.transform.position = currentBlock.transform.position + directionZ;
+      }
+    }
+
+    private bool checkBoundsWhenMove(Vector3 direction, Vector3 position)
+    {
+      RaycastHit hit;
+      if (Physics.Raycast(position, transform.TransformDirection(direction), out hit, Mathf.Infinity))
+      {
+          if (hit.distance < 1f)
+          {
+            return true;
+          }
+          return false;
+      }
+      else
+      {
+          return false;
+      }
     }
 
     private void spawnTetrisBlock()
