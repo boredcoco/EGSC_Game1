@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 4960566789132601286}
   - component: {fileID: 4960566789132601306}
   - component: {fileID: 4960566789132601307}
-  - component: {fileID: 4960566789132601284}
   - component: {fileID: 4960566789132601285}
   - component: {fileID: 9055330281246853431}
   - component: {fileID: 2609141950138659916}
   - component: {fileID: 581468926386591966}
   - component: {fileID: 306093855401952498}
+  - component: {fileID: 2545662002401746057}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Tetrisblock
@@ -89,19 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4960566789132601284
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960566789132601287}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4960566789132601285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +163,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083da4650585d4db7a8baddb316ec638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2545662002401746057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960566789132601287}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: -0.000000059604645, y: 0.00000047683716, z: -0.00000017881393}
 --- !u!1 &4960566789263320825
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,12 +187,12 @@ GameObject:
   - component: {fileID: 4960566789263320824}
   - component: {fileID: 4960566789263320828}
   - component: {fileID: 4960566789263320829}
-  - component: {fileID: 4960566789263320830}
   - component: {fileID: 4960566789263320831}
   - component: {fileID: 7942056390493670505}
   - component: {fileID: 1837536921966118237}
   - component: {fileID: 5679886532433646865}
   - component: {fileID: 8573010484851512033}
+  - component: {fileID: 8034752672334309927}
   m_Layer: 0
   m_Name: Piece (1)
   m_TagString: Tetrisblock
@@ -265,19 +265,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4960566789263320830
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960566789263320825}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.99002576, y: 1, z: 1}
-  m_Center: {x: -0.004987187, y: 0, z: 0}
 --- !u!114 &4960566789263320831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +339,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083da4650585d4db7a8baddb316ec638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &8034752672334309927
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960566789263320825}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.00000047683716, z: -0.00000017881393}
 --- !u!1 &4960566789271794238
 GameObject:
   m_ObjectHideFlags: 0
