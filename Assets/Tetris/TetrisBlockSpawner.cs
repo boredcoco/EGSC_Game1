@@ -23,7 +23,7 @@ public class TetrisBlockSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (currentTime <= 0f)
+        if (currentTime <= 0f && currentBlock == null)
         {
           spawnTetrisBlock();
           currentTime = spawnDuration;
