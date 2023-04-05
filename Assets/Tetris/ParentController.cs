@@ -55,12 +55,10 @@ public class ParentController : MonoBehaviour
 
     public void FreezeAllChildrenPositions()
     {
-      /*
       foreach(Rigidbody rb in childrenRbs)
       {
          rb.constraints = RigidbodyConstraints.FreezePosition;
       }
-      */
       foreach(TetrisBlockMovement childMovement in childMovements)
       {
          childMovement.SetIsGrounded();
