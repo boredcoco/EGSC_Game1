@@ -50,4 +50,31 @@ public class TetrisBlockSpawner : MonoBehaviour
     {
       return block == currentBlock;
     }
+
+    public void RotateAlongX()
+    {
+      if (currentBlock == null)
+      {
+        return;
+      }
+      currentBlock.GetComponent<ParentController>().RotateAlongX();
+    }
+
+    public void RotateAlongY()
+    {
+      if (currentBlock == null)
+      {
+        return;
+      }
+      currentBlock.GetComponent<ParentController>().RotateAlongY();
+    }
+
+    public void RotateAlongZ()
+    {
+      if (currentBlock == null)
+      {
+        return;
+      }
+      currentBlock.GetComponent<ParentController>().RotateAlongZ();
+    }
 }

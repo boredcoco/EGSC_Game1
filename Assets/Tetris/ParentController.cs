@@ -58,6 +58,7 @@ public class ParentController : MonoBehaviour
       foreach(Rigidbody rb in childrenRbs)
       {
          rb.constraints = RigidbodyConstraints.FreezePosition;
+         rb.isKinematic = true;
       }
       foreach(TetrisBlockMovement childMovement in childMovements)
       {
@@ -66,6 +67,45 @@ public class ParentController : MonoBehaviour
       }
       isGrounded = true;
       tetrisBlockSpawner.ClearCurrentBlock();
+    }
+
+    public void RotateAlongX()
+    {
+      if (isGrounded)
+      {
+        return;
+      }
+      Quaternion rotation = Quaternion.Euler(90, 0, 0);
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.MoveRotation(rotation);
+      }
+    }
+
+    public void RotateAlongY()
+    {
+      if (isGrounded)
+      {
+        return;
+      }
+      Quaternion rotation = Quaternion.Euler(0, 90, 0);
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.MoveRotation(rotation);
+      }
+    }
+
+    public void RotateAlongZ()
+    {
+      if (isGrounded)
+      {
+        return;
+      }
+      Quaternion rotation = Quaternion.Euler(0, 0, 90);
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.MoveRotation(rotation);
+      }
     }
 
 }
