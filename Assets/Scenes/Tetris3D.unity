@@ -920,6 +920,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029289651}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1149770282 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9190660621466207985, guid: bdb5934f8823840ba9e63e46d4006a9f, type: 3}
+  m_PrefabInstance: {fileID: 1676674682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1178949012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,11 +1458,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &1563069981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4960566789271794238, guid: 2debba735cb42490daf894608449d4de, type: 3}
-  m_PrefabInstance: {fileID: 555212832}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1568382619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1960,9 +1960,9 @@ MonoBehaviour:
   SpawnLocation: {fileID: 0}
   spawnDuration: 5
   pieces:
-  - {fileID: 4960566789271794238, guid: 2debba735cb42490daf894608449d4de, type: 3}
+  - {fileID: 9190660621466207985, guid: bdb5934f8823840ba9e63e46d4006a9f, type: 3}
   spawnPosition:
-  - {fileID: 1563069981}
+  - {fileID: 1149770282}
 --- !u!4 &2032600630
 Transform:
   m_ObjectHideFlags: 0

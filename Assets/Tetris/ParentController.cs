@@ -75,10 +75,12 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
+
       Quaternion rotation = Quaternion.Euler(90, 0, 0);
       foreach(Rigidbody rb in childrenRbs)
       {
-        rb.MoveRotation(rotation);
+        // rb.MoveRotation(rotation);
+        rb.rotation = rb.rotation * rotation;
       }
     }
 
@@ -88,10 +90,12 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
+
       Quaternion rotation = Quaternion.Euler(0, 90, 0);
       foreach(Rigidbody rb in childrenRbs)
       {
-        rb.MoveRotation(rotation);
+        // rb.MoveRotation(rotation);
+        rb.rotation = rb.rotation * rotation;
       }
     }
 
@@ -101,10 +105,12 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
+
       Quaternion rotation = Quaternion.Euler(0, 0, 90);
       foreach(Rigidbody rb in childrenRbs)
       {
-        rb.MoveRotation(rotation);
+        // rb.MoveRotation(rotation);
+        rb.rotation = rb.rotation * rotation;
       }
     }
 
