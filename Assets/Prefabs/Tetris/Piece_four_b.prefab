@@ -137,7 +137,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!138 &6353336530368286472
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!138 &7212043704697055807
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -432,8 +432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292e52f432de64dd5868107a06f66005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  middle: {fileID: 7153226978229971084}
-  radius: 1.5
 --- !u!1 &7153226979700251192
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +567,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!138 &4989033490478345778
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -745,7 +743,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!138 &7395184948826161876
 FixedJoint:
   m_ObjectHideFlags: 0

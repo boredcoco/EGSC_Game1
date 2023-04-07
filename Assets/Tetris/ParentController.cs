@@ -114,4 +114,17 @@ public class ParentController : MonoBehaviour
       }
     }
 
+    private bool checkRotation(Rigidbody rb, Quaternion rotation)
+    {
+      FixedJoint fixedJoint = rb.gameObject.GetComponent<FixedJoint>();
+      Vector3 connectedAnchorWorldPosition = fixedJoint.connectedBody.transform.TransformPoint(fixedJoint.connectedAnchor);
+      rb.rotation = rb.rotation * rotation;
+      Vector3 projectedPosition = fixedJoint.connectedBody.transform.TransformPoint(fixedJoint.connectedAnchor);
+      Vector3 displacement = projectedPosition - connectedAnchorWorldPosition;
+
+      Debug.Log(displacement);
+      return false;
+
+    }
+
 }
