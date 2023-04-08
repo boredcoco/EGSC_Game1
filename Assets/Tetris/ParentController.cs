@@ -10,6 +10,8 @@ public class ParentController : MonoBehaviour
 
     private bool isGrounded = false;
 
+    [SerializeField] private float force = 1f;
+
     private void Start()
     {
       childrenRbs = GetComponentsInChildren<Rigidbody>();
@@ -29,7 +31,7 @@ public class ParentController : MonoBehaviour
       // Move along x-axis
       float horizontalInput = Input.GetAxis("Horizontal");
       int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
-      Vector3 directionX = new Vector3(operationX, 0, 0);
+      Vector3 directionX = new Vector3(operationX * force, 0, 0);
 
       if (!isGrounded)
       {
@@ -42,7 +44,7 @@ public class ParentController : MonoBehaviour
       // Move along z-axis
       float verticalInput = Input.GetAxis("Vertical");
       int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
-      Vector3 directionZ = new Vector3(0, 0, operationZ);
+      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
 
       if (!isGrounded)
       {
@@ -112,19 +114,6 @@ public class ParentController : MonoBehaviour
         // rb.MoveRotation(rotation);
         rb.rotation = rb.rotation * rotation;
       }
-    }
-
-    private bool checkRotation(Rigidbody rb, Quaternion rotation)
-    {
-      FixedJoint fixedJoint = rb.gameObject.GetComponent<FixedJoint>();
-      Vector3 connectedAnchorWorldPosition = fixedJoint.connectedBody.transform.TransformPoint(fixedJoint.connectedAnchor);
-      rb.rotation = rb.rotation * rotation;
-      Vector3 projectedPosition = fixedJoint.connectedBody.transform.TransformPoint(fixedJoint.connectedAnchor);
-      Vector3 displacement = projectedPosition - connectedAnchorWorldPosition;
-
-      Debug.Log(displacement);
-      return false;
-
     }
 
 }
