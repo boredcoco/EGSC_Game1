@@ -6,6 +6,7 @@ public class ParentController : MonoBehaviour
 {
     private Rigidbody[] childrenRbs;
     private TetrisBlockMovement[] childMovements;
+    private TetrisBlockCollisionHandler[] childCollisionHandlers;
     private TetrisBlockSpawner tetrisBlockSpawner;
 
     private bool isGrounded = false;
@@ -16,6 +17,7 @@ public class ParentController : MonoBehaviour
     {
       childrenRbs = GetComponentsInChildren<Rigidbody>();
       childMovements = GetComponentsInChildren<TetrisBlockMovement>();
+      childCollisionHandlers = GetComponentsInChildren<TetrisBlockCollisionHandler>();
 
       // find the block spawner
       GameObject blockSpawner = GameObject.FindWithTag("BlockSpawner");
@@ -54,6 +56,53 @@ public class ParentController : MonoBehaviour
         }
       }
     }
+
+/*
+    private void Update()
+    {
+      // Move along x-axis
+      float horizontalInput = Input.GetAxis("Horizontal");
+      int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
+      Vector3 directionX = new Vector3(operationX * force, 0, 0);
+
+      if (!isGrounded)
+      {
+        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
+        {
+          if (cHandler.checkIfWillHitSideWall(directionX))
+          {
+            goto HandleZ;
+          }
+        }
+        foreach(TetrisBlockMovement childMovement in childMovements)
+        {
+          childMovement.moveBlock(directionX);
+        }
+      }
+
+      HandleZ:
+      // Move along z-axis
+      float verticalInput = Input.GetAxis("Vertical");
+      int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
+      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
+
+      if (!isGrounded)
+      {
+        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
+        {
+          if (cHandler.checkIfWillHitSideWall(directionZ))
+          {
+            return;
+          }
+        }
+        foreach(TetrisBlockMovement childMovement in childMovements)
+        {
+          childMovement.moveBlock(directionZ);
+        }
+      }
+    }
+    */
+
 
     public void FreezeAllChildrenPositions()
     {

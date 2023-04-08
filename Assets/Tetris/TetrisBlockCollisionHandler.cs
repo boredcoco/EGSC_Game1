@@ -49,4 +49,24 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       }
       return false;
     }
+
+    public bool checkIfWillHitSideWall(Vector3 dir)
+    {
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(dir);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      RaycastHit hit;
+      if (Physics.Raycast(transform.position, absoluteDirection, out hit, Mathf.Infinity))
+      {
+          Debug.Log(hit.distance);
+          if (hit.distance < 1f && hit.transform.parent != gameObject.transform.parent)
+          {
+            return true;
+          }
+          return false;
+      }
+      return false;
+    }
 }

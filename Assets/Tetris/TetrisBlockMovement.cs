@@ -11,8 +11,8 @@ public class TetrisBlockMovement : MonoBehaviour
     private bool isGrounded = false;
 
     // snap to positions
-    private float[] standardXPositions = {-1.38f, -0.38f, 0.62f};
-    private float[] standardZPositions = {-1.208f, -0.208f, 0.792f};
+    private float xOffset = 0.2f;
+    private float zOffset = 0.2f;
 
     private ParentController parentController;
 
@@ -40,11 +40,19 @@ public class TetrisBlockMovement : MonoBehaviour
 
     public void SetIsGrounded()
     {
+      Vector3 roundedPos = new Vector3(Mathf.Round(transform.position.x) + xOffset,
+                            transform.position.y, Mathf.Round(transform.position.z) + zOffset);
+      transform.position = roundedPos;
       isGrounded = true;
     }
 
     public void changeTag(string tag)
     {
       gameObject.tag = tag;
+    }
+
+    public void moveBlock(Vector3 dir)
+    {
+      rb.MovePosition(transform.position + dir);
     }
 }
