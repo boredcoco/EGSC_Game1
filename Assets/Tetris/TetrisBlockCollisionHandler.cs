@@ -25,7 +25,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (parentController != null && checkIfFloorIsBelow())
+        if (parentController != null && checkIfFloorIsBelow() && collision.gameObject.tag == "Floor")
         {
           parentController.FreezeAllChildrenPositions();
         }
