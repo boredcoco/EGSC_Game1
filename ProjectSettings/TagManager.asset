@@ -8,6 +8,7 @@ TagManager:
   - Tetrisblock
   - BlockSpawner
   - Floor
+  - LayerClearing
   layers:
   - Default
   - TransparentFX

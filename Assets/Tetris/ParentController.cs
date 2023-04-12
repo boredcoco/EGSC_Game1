@@ -13,6 +13,8 @@ public class ParentController : MonoBehaviour
 
     [SerializeField] private float force = 1f;
 
+    private int totalChildren = 0;
+
     private void Start()
     {
       childrenRbs = GetComponentsInChildren<Rigidbody>();
@@ -25,6 +27,8 @@ public class ParentController : MonoBehaviour
       {
         tetrisBlockSpawner = blockSpawner.GetComponent<TetrisBlockSpawner>();
       }
+
+      totalChildren = childrenRbs.Length;
 
     }
 
@@ -108,16 +112,27 @@ public class ParentController : MonoBehaviour
     {
       foreach(Rigidbody rb in childrenRbs)
       {
-         rb.constraints = RigidbodyConstraints.FreezePosition;
-         rb.isKinematic = true;
+        if (rb != null)
+        {
+          // rb.constraints = RigidbodyConstraints.FreezePosition;
+          rb.isKinematic = true;
+          // rb.gameObject.transform.position = rb.gameObject.transform.TransformPoint(Vector3.zero);
+        }
       }
       foreach(TetrisBlockMovement childMovement in childMovements)
       {
-         childMovement.SetIsGrounded();
-         childMovement.changeTag("Floor");
+        if (childMovement != null)
+        {
+          childMovement.HandleSnap();
+          childMovement.changeTag("Floor");
+        }
       }
       isGrounded = true;
       tetrisBlockSpawner.ClearCurrentBlock();
+
+      // detach children and destroy parent
+      transform.DetachChildren();
+      Destroy(gameObject);
     }
 
     public void RotateAlongX()
@@ -163,6 +178,15 @@ public class ParentController : MonoBehaviour
         // rb.MoveRotation(rotation);
         rb.rotation = rb.rotation * rotation;
       }
+    }
+
+    public void ReduceChildCount()
+    {
+      if (totalChildren <= 0)
+      {
+        Destroy(gameObject);
+      }
+      totalChildren -= 1;
     }
 
 }

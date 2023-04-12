@@ -10,6 +10,8 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
 
     private Rigidbody rb;
 
+    private LayerClearing layerClearing;
+
     private void Start()
     {
       rb = GetComponent<Rigidbody>();
@@ -21,6 +23,8 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
         parentController = parent.GetComponent<ParentController>();
       }
 
+      layerClearing = GameObject.FindWithTag("LayerClearing").GetComponent<LayerClearing>();
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -28,6 +32,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
         if (parentController != null && checkIfFloorIsBelow() && collision.gameObject.tag == "Floor")
         {
           parentController.FreezeAllChildrenPositions();
+          layerClearing.clearLayer(gameObject);
         }
     }
 
@@ -68,5 +73,10 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
           return false;
       }
       return false;
+    }
+
+    public void moveDownwardByOne()
+    {
+      rb.MovePosition(rb.position + new Vector3(0, -1, 0));
     }
 }

@@ -8,8 +8,6 @@ public class TetrisBlockMovement : MonoBehaviour
 
     private Rigidbody rb;
 
-    private bool isGrounded = false;
-
     // snap to positions
     private float xOffset = 0.2f;
     private float zOffset = 0.2f;
@@ -31,19 +29,13 @@ public class TetrisBlockMovement : MonoBehaviour
       // downward movement
       Vector3 force = new Vector3(0, -1 * movementSpeed, 0);
       rb.AddForce(force, ForceMode.VelocityChange);
-
-      if (isGrounded)
-      {
-        return;
-      }
     }
 
-    public void SetIsGrounded()
+    public void HandleSnap()
     {
       Vector3 roundedPos = new Vector3(Mathf.Round(transform.position.x) + xOffset,
                             transform.position.y, Mathf.Round(transform.position.z) + zOffset);
       transform.position = roundedPos;
-      isGrounded = true;
     }
 
     public void changeTag(string tag)
