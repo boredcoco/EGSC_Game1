@@ -14,6 +14,8 @@ public class TetrisBlockMovement : MonoBehaviour
 
     private ParentController parentController;
 
+    private int moveDownByAmount = 0;
+
     private void Start()
     {
       rb = GetComponent<Rigidbody>();
@@ -43,8 +45,14 @@ public class TetrisBlockMovement : MonoBehaviour
       gameObject.tag = tag;
     }
 
-    public void moveBlock(Vector3 dir)
+    public void increaseMoveDownAmount()
     {
-      rb.MovePosition(transform.position + dir);
+      moveDownByAmount += 1;
+    }
+
+    public void moveBlockDownwards()
+    {
+      transform.position -= new Vector3(0, 0.9f * moveDownByAmount, 0);
+      moveDownByAmount = 0;
     }
 }

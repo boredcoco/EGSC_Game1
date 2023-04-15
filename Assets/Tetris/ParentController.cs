@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class ParentController : MonoBehaviour
 
     [SerializeField] private float force = 1f;
 
-    private int totalChildren = 0;
+    private HashSet<int> layersCleared = new HashSet<int>();
 
     private void Start()
     {
@@ -27,8 +28,6 @@ public class ParentController : MonoBehaviour
       {
         tetrisBlockSpawner = blockSpawner.GetComponent<TetrisBlockSpawner>();
       }
-
-      totalChildren = childrenRbs.Length;
 
     }
 
@@ -110,15 +109,6 @@ public class ParentController : MonoBehaviour
 
     public void FreezeAllChildrenPositions()
     {
-      foreach(Rigidbody rb in childrenRbs)
-      {
-        if (rb != null)
-        {
-          // rb.constraints = RigidbodyConstraints.FreezePosition;
-          rb.isKinematic = true;
-          // rb.gameObject.transform.position = rb.gameObject.transform.TransformPoint(Vector3.zero);
-        }
-      }
       foreach(TetrisBlockMovement childMovement in childMovements)
       {
         if (childMovement != null)
@@ -127,8 +117,19 @@ public class ParentController : MonoBehaviour
           childMovement.changeTag("Floor");
         }
       }
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        if (rb != null)
+        {
+          // rb.constraints = RigidbodyConstraints.FreezePosition;
+          rb.isKinematic = true;
+          clearLayer(rb.gameObject);
+        }
+      }
+
       isGrounded = true;
       tetrisBlockSpawner.ClearCurrentBlock();
+      tetrisBlockSpawner.SetClearedLayers(layersCleared);
 
       // detach children and destroy parent
       transform.DetachChildren();
@@ -145,7 +146,6 @@ public class ParentController : MonoBehaviour
       Quaternion rotation = Quaternion.Euler(90, 0, 0);
       foreach(Rigidbody rb in childrenRbs)
       {
-        // rb.MoveRotation(rotation);
         rb.rotation = rb.rotation * rotation;
       }
     }
@@ -160,7 +160,6 @@ public class ParentController : MonoBehaviour
       Quaternion rotation = Quaternion.Euler(0, 90, 0);
       foreach(Rigidbody rb in childrenRbs)
       {
-        // rb.MoveRotation(rotation);
         rb.rotation = rb.rotation * rotation;
       }
     }
@@ -175,18 +174,37 @@ public class ParentController : MonoBehaviour
       Quaternion rotation = Quaternion.Euler(0, 0, 90);
       foreach(Rigidbody rb in childrenRbs)
       {
-        // rb.MoveRotation(rotation);
         rb.rotation = rb.rotation * rotation;
       }
     }
 
-    public void ReduceChildCount()
+    private void clearLayer(GameObject block)
     {
-      if (totalChildren <= 0)
-      {
-        Destroy(gameObject);
-      }
-      totalChildren -= 1;
+        Vector3 center = block.transform.TransformPoint(Vector3.zero);
+        float radius = 3;
+        Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+
+        // filter for ideal yCoordinate
+        float layer = block.transform.TransformPoint(Vector3.zero).y;
+        Collider[] hitCollidersWithSameLayer = Array.FindAll(hitColliders,
+          hitCollider => Mathf.Abs(
+            hitCollider.gameObject.transform.TransformPoint(Vector3.zero).y - layer) < 0.1f
+            && hitCollider.gameObject.tag == "Floor"
+            && hitCollider.gameObject.name != "Floor");
+
+
+        if (hitCollidersWithSameLayer.Length < 9)
+        {
+          return;
+        }
+
+        // clear layer
+        foreach (Collider hitCollider in hitCollidersWithSameLayer)
+        {
+            hitCollider.gameObject.SetActive(false);
+            // Destroy(hitCollider.gameObject);
+        }
+        layersCleared.Add((int) Mathf.Round(layer));
     }
 
 }

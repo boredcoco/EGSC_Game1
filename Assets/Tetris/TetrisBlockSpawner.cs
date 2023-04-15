@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class TetrisBlockSpawner : MonoBehaviour
 
     private GameObject currentBlock;
 
+    // for layer clearing
+    private HashSet<int> layersCleared = new HashSet<int>();
+
     private void Start()
     {
       currentTime = spawnDuration;
@@ -31,10 +35,15 @@ public class TetrisBlockSpawner : MonoBehaviour
         currentTime -= Time.deltaTime;
     }
 
+    private void LateUpdate()
+    {
+      moveLayersDown();
+    }
+
     private void spawnTetrisBlock()
     {
       // Choose a random index
-      int index = (int) Mathf.Floor(Random.Range(0f, pieces.Length - 0.1f));
+      int index = (int) Mathf.Floor(UnityEngine.Random.Range(0f, pieces.Length - 0.1f));
       GameObject toSpawn = pieces[index];
       Vector3 spawnPos = spawnPosition[index].transform.position;
 
@@ -76,5 +85,31 @@ public class TetrisBlockSpawner : MonoBehaviour
         return;
       }
       currentBlock.GetComponent<ParentController>().RotateAlongZ();
+    }
+
+    public void SetClearedLayers(HashSet<int> layers)
+    {
+      layersCleared = layers;
+    }
+
+    private void moveLayersDown()
+    {
+      if (layersCleared.Count == 0)
+      {
+        return;
+      }
+      GameObject[] allBlocks = Array.FindAll(GameObject.FindGameObjectsWithTag("Floor"),
+        currentBlock => currentBlock.name != "Floor" && currentBlock.activeSelf
+      );
+      int[] allEntries = new int[layersCleared.Count];
+      layersCleared.CopyTo(allEntries);
+      foreach (GameObject currentBlock in allBlocks)
+      {
+        int[] layersAbove = Array.FindAll(allEntries,
+          layer => currentBlock.transform.position.y - layer > 0.5f);
+        currentBlock.transform.position += new Vector3(0, -0.9f * layersAbove.Length, 0);
+      }
+      layersCleared = new HashSet<int>();
+
     }
 }
