@@ -60,7 +60,6 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       RaycastHit hit;
       if (Physics.Raycast(transform.position, absoluteDirection, out hit, Mathf.Infinity))
       {
-          Debug.Log(hit.distance);
           if (hit.distance < 1f && hit.transform.parent != gameObject.transform.parent)
           {
             return true;

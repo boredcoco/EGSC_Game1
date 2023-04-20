@@ -9,16 +9,16 @@ public class TetrisBlockMovement : MonoBehaviour
 
     private Rigidbody rb;
 
-    // snap to positions
-    private float xOffset = 0.2f;
-    private float zOffset = 0.2f;
-
     private ParentController parentController;
 
     private int moveDownByAmount = 0;
 
     // check if game over
     private GameObject stopPosition;
+
+    // snap to positions
+    private float xOffset = -0.2f;
+    private float zOffset = -0.2f;
 
     private void Start()
     {
@@ -39,16 +39,20 @@ public class TetrisBlockMovement : MonoBehaviour
       rb.AddForce(force, ForceMode.VelocityChange);
     }
 
-    public void HandleSnap()
+    public void CheckIndividualPositions()
     {
-      Vector3 roundedPos = new Vector3(Mathf.Round(transform.position.x) + xOffset,
-                            transform.position.y, Mathf.Round(transform.position.z) + zOffset);
-      transform.position = roundedPos;
-
       if (transform.position.y > stopPosition.transform.position.y)
       {
         SceneManager.LoadScene("GameOver");
       }
+    }
+
+    public void HandleSnap()
+    {
+      // handle offset on movement
+      Vector3 roundedPos = new Vector3(Mathf.Round(transform.position.x) - xOffset,
+                            transform.position.y, Mathf.Round(transform.position.z) - zOffset);
+      transform.position = roundedPos;
     }
 
     public void changeTag(string tag)
