@@ -31,6 +31,7 @@ public class ParentController : MonoBehaviour
 
     }
 
+/*
     private void FixedUpdate()
     {
       // Move along x-axis
@@ -59,14 +60,14 @@ public class ParentController : MonoBehaviour
         }
       }
     }
+    */
 
-/*
     private void Update()
     {
       // Move along x-axis
       float horizontalInput = Input.GetAxis("Horizontal");
       int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
-      Vector3 directionX = new Vector3(operationX * force, 0, 0);
+      Vector3 directionX = new Vector3(operationX, 0, 0);
 
       if (!isGrounded)
       {
@@ -87,7 +88,7 @@ public class ParentController : MonoBehaviour
       // Move along z-axis
       float verticalInput = Input.GetAxis("Vertical");
       int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
-      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
+      Vector3 directionZ = new Vector3(0, 0, operationZ);
 
       if (!isGrounded)
       {
@@ -104,7 +105,6 @@ public class ParentController : MonoBehaviour
         }
       }
     }
-    */
 
 
     public void FreezeAllChildrenPositions()
@@ -202,7 +202,6 @@ public class ParentController : MonoBehaviour
         foreach (Collider hitCollider in hitCollidersWithSameLayer)
         {
             hitCollider.gameObject.SetActive(false);
-            // Destroy(hitCollider.gameObject);
         }
         layersCleared.Add((int) Mathf.Round(layer));
     }

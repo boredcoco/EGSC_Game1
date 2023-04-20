@@ -74,4 +74,5 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
     {
       rb.MovePosition(rb.position + new Vector3(0, -1, 0));
     }
+
 }

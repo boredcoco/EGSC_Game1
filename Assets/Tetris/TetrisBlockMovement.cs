@@ -66,4 +66,9 @@ public class TetrisBlockMovement : MonoBehaviour
       transform.position -= new Vector3(0, 0.9f * moveDownByAmount, 0);
       moveDownByAmount = 0;
     }
+
+    public void moveBlock(Vector3 dir)
+    {
+      transform.position += dir;
+    }
 }
