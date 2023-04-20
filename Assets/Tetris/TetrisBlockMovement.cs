@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TetrisBlockMovement : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class TetrisBlockMovement : MonoBehaviour
 
     private int moveDownByAmount = 0;
 
+    // check if game over
+    private GameObject stopPosition;
+
     private void Start()
     {
       rb = GetComponent<Rigidbody>();
@@ -24,6 +28,8 @@ public class TetrisBlockMovement : MonoBehaviour
       {
         parentController = transform.parent.gameObject.GetComponent<ParentController>();
       }
+
+      stopPosition = GameObject.Find("StopPosition");
     }
 
     private void FixedUpdate()
@@ -38,6 +44,11 @@ public class TetrisBlockMovement : MonoBehaviour
       Vector3 roundedPos = new Vector3(Mathf.Round(transform.position.x) + xOffset,
                             transform.position.y, Mathf.Round(transform.position.z) + zOffset);
       transform.position = roundedPos;
+
+      if (transform.position.y > stopPosition.transform.position.y)
+      {
+        SceneManager.LoadScene("GameOver");
+      }
     }
 
     public void changeTag(string tag)
