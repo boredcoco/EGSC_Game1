@@ -14,6 +14,10 @@ public class ParentController : MonoBehaviour
 
     private HashSet<int> layersCleared = new HashSet<int>();
 
+    // for position snapping
+    private float[] xPositions = {0.2f, -0.8f, -1.8f};
+    private float[] zPositions = {-0.8f, -1.8f, -2.8f};
+
     private void Start()
     {
       childrenRbs = GetComponentsInChildren<Rigidbody>();
@@ -73,6 +77,14 @@ public class ParentController : MonoBehaviour
       }
     }
 
+    private void LateUpdate()
+    {
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.transform.position = findIdealPos(rb.transform.position);
+      }
+    }
+
 
     public void FreezeAllChildrenPositions()
     {
@@ -80,7 +92,7 @@ public class ParentController : MonoBehaviour
       {
         if (childMovement != null)
         {
-          childMovement.HandleSnap();
+          // childMovement.HandleSnap();
           childMovement.CheckIndividualPositions();
           childMovement.changeTag("Floor");
         }
@@ -109,9 +121,10 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
+      // transform.Rotate(rotation.eulerAngles);
       foreach(Rigidbody rb in childrenRbs)
       {
-        rb.rotation = rb.rotation * rotation;
+        rb.rotation *= rotation;
       }
     }
 
@@ -144,6 +157,36 @@ public class ParentController : MonoBehaviour
 
         // update score
         tetrisBlockSpawner.UpdateScore();
+    }
+
+    private Vector3 findIdealPos(Vector3 currentPos)
+    {
+      Vector3 currentVector = new Vector3(xPositions[0], currentPos.y, zPositions[0]);
+      float currentLowest = Vector3.Distance(new Vector3(xPositions[0], currentPos.y, zPositions[0]), currentPos);
+
+      foreach(float xPos in xPositions)
+      {
+        foreach(float zPos in zPositions)
+        {
+          float distBetween = Vector3.Distance(new Vector3(xPos, currentPos.y, zPos), currentPos);
+          if (distBetween < currentLowest)
+          {
+            currentVector = new Vector3(xPos, currentPos.y, zPos);
+            currentLowest = distBetween;
+          }
+        }
+      }
+
+      // Debug.Log(currentVector.y);
+
+      return currentVector;
+    }
+
+    public Vector3 handleSnap(Vector3 currentPos)
+    {
+      Vector3 roundedPos = new Vector3(Mathf.Round(currentPos.x),
+                            currentPos.y, Mathf.Round(currentPos.z));
+      return roundedPos;
     }
 
 }
