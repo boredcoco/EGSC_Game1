@@ -14,9 +14,15 @@ public class ParentController : MonoBehaviour
 
     private HashSet<int> layersCleared = new HashSet<int>();
 
+    // for horitzontal and vertical movement
+    [SerializeField] private float force = 1f;
+
     // for position snapping
     private float[] xPositions = {0.2f, -0.8f, -1.8f};
     private float[] zPositions = {-0.8f, -1.8f, -2.8f};
+
+    // for rotation
+    private bool hasBeenRotated = false;
 
     private void Start()
     {
@@ -33,6 +39,7 @@ public class ParentController : MonoBehaviour
 
     }
 
+/*
     private void Update()
     {
       // Move along x-axis
@@ -76,13 +83,48 @@ public class ParentController : MonoBehaviour
         }
       }
     }
+    */
+
+    private void FixedUpdate()
+    {
+      // Move along x-axis
+      float horizontalInput = Input.GetAxis("Horizontal");
+      int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
+      Vector3 directionX = new Vector3(operationX * force, 0, 0);
+
+      if (!isGrounded)
+      {
+        foreach(Rigidbody rb in childrenRbs)
+        {
+          rb.AddForce(directionX, ForceMode.VelocityChange);
+        }
+      }
+
+      // Move along z-axis
+      float verticalInput = Input.GetAxis("Vertical");
+      int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
+      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
+
+      if (!isGrounded)
+      {
+        foreach(Rigidbody rb in childrenRbs)
+        {
+          rb.AddForce(directionZ, ForceMode.VelocityChange);
+        }
+      }
+    }
 
     private void LateUpdate()
     {
+      if (!hasBeenRotated)
+      {
+        return;
+      }
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
       }
+      hasBeenRotated = false;
     }
 
 
@@ -92,7 +134,7 @@ public class ParentController : MonoBehaviour
       {
         if (childMovement != null)
         {
-          // childMovement.HandleSnap();
+          childMovement.HandleSnap();
           childMovement.CheckIndividualPositions();
           childMovement.changeTag("Floor");
         }
@@ -125,7 +167,9 @@ public class ParentController : MonoBehaviour
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.rotation *= rotation;
+        // rb.MoveRotation(rotation);
       }
+      hasBeenRotated = true;
     }
 
     private void clearLayer(GameObject block)
@@ -151,7 +195,8 @@ public class ParentController : MonoBehaviour
         // clear layer
         foreach (Collider hitCollider in hitCollidersWithSameLayer)
         {
-            hitCollider.gameObject.SetActive(false);
+            Destroy(hitCollider.gameObject);
+            // hitCollider.gameObject.SetActive(false);
         }
         layersCleared.Add((int) Mathf.Round(layer));
 
@@ -176,8 +221,6 @@ public class ParentController : MonoBehaviour
           }
         }
       }
-
-      // Debug.Log(currentVector.y);
 
       return currentVector;
     }

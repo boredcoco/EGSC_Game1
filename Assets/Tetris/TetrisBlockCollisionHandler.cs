@@ -39,6 +39,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       Vector3 absoluteDirection = inverseRotation * worldDirection;
 
       RaycastHit hit;
+      Debug.Log(transform.position);
       if (Physics.Raycast(transform.position, absoluteDirection, out hit, Mathf.Infinity))
       {
           if (hit.distance < 0.5f && hit.transform.parent != gameObject.transform.parent)

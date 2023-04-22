@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f484fb5ddcda24a65b43a299bdab3992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.1
+  movementSpeed: 0.02
 --- !u!138 &480743644613957669
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f484fb5ddcda24a65b43a299bdab3992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.1
+  movementSpeed: 0.02
 --- !u!54 &337364439587757953
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f484fb5ddcda24a65b43a299bdab3992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.1
+  movementSpeed: 0.02
 --- !u!138 &3455136720593027436
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -608,7 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292e52f432de64dd5868107a06f66005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 1
 --- !u!1 &1938564681099774739
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f484fb5ddcda24a65b43a299bdab3992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0.1
+  movementSpeed: 0.02
 --- !u!54 &7200681067145441945
 Rigidbody:
   m_ObjectHideFlags: 0
