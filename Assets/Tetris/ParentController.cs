@@ -83,7 +83,7 @@ public class ParentController : MonoBehaviour
         }
       }
     }
-    */
+*/
 
     private void FixedUpdate()
     {
@@ -113,6 +113,7 @@ public class ParentController : MonoBehaviour
         }
       }
     }
+
 
     private void LateUpdate()
     {

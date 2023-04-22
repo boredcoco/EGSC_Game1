@@ -13,6 +13,9 @@ public class TetrisBlockMovement : MonoBehaviour
 
     private int moveDownByAmount = 0;
 
+    // check for grounding
+    private bool isGrounded = false;
+
     // check if game over
     private GameObject stopPosition;
 
@@ -32,11 +35,27 @@ public class TetrisBlockMovement : MonoBehaviour
       stopPosition = GameObject.Find("StopPosition");
     }
 
+/*
     private void FixedUpdate()
     {
       // downward movement
       Vector3 force = new Vector3(0, -1 * movementSpeed, 0);
       rb.AddForce(force, ForceMode.VelocityChange);
+    }
+    */
+
+    private void Update()
+    {
+      if (isGrounded)
+      {
+        return;
+      }
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(Vector3.down);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      transform.position += absoluteDirection * Time.deltaTime;
     }
 
     public void CheckIndividualPositions()
@@ -57,6 +76,7 @@ public class TetrisBlockMovement : MonoBehaviour
 
     public void changeTag(string tag)
     {
+      isGrounded = true;
       gameObject.tag = tag;
     }
 
