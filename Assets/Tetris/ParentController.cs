@@ -39,6 +39,7 @@ public class ParentController : MonoBehaviour
 
     }
 
+/*
     private void Update()
     {
       // Move along x-axis
@@ -87,23 +88,15 @@ public class ParentController : MonoBehaviour
         rb.transform.position = findIdealPos(rb.transform.position);
       }
     }
+*/
 
 
-/*
     private void FixedUpdate()
     {
       // Move along x-axis
       float horizontalInput = Input.GetAxis("Horizontal");
       int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
       Vector3 directionX = new Vector3(operationX * force, 0, 0);
-
-      if (!isGrounded)
-      {
-        foreach(Rigidbody rb in childrenRbs)
-        {
-          rb.AddForce(directionX, ForceMode.VelocityChange);
-        }
-      }
 
       // Move along z-axis
       float verticalInput = Input.GetAxis("Vertical");
@@ -115,10 +108,10 @@ public class ParentController : MonoBehaviour
         foreach(Rigidbody rb in childrenRbs)
         {
           rb.AddForce(directionZ, ForceMode.VelocityChange);
+          rb.AddForce(directionX, ForceMode.VelocityChange);
         }
       }
     }
-    */
 
     private void LateUpdate()
     {
