@@ -39,7 +39,6 @@ public class ParentController : MonoBehaviour
 
     }
 
-/*
     private void Update()
     {
       // Move along x-axis
@@ -83,8 +82,9 @@ public class ParentController : MonoBehaviour
         }
       }
     }
-*/
 
+
+/*
     private void FixedUpdate()
     {
       // Move along x-axis
@@ -113,7 +113,7 @@ public class ParentController : MonoBehaviour
         }
       }
     }
-
+    */
 
     private void LateUpdate()
     {
@@ -135,7 +135,7 @@ public class ParentController : MonoBehaviour
       {
         if (childMovement != null)
         {
-          childMovement.HandleSnap();
+          // childMovement.HandleSnap();
           childMovement.CheckIndividualPositions();
           childMovement.changeTag("Floor");
         }
@@ -144,6 +144,7 @@ public class ParentController : MonoBehaviour
       {
         if (rb != null)
         {
+          rb.transform.position = findIdealPos(rb.transform.position);
           rb.isKinematic = true;
           clearLayer(rb.gameObject);
         }
@@ -165,11 +166,13 @@ public class ParentController : MonoBehaviour
         return;
       }
       // transform.Rotate(rotation.eulerAngles);
+
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.rotation *= rotation;
         // rb.MoveRotation(rotation);
       }
+
       hasBeenRotated = true;
     }
 

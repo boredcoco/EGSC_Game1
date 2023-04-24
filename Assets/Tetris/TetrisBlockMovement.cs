@@ -80,4 +80,15 @@ public class TetrisBlockMovement : MonoBehaviour
       gameObject.tag = tag;
     }
 
+    public void moveBlock(Vector3 dir)
+    {
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(dir);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      transform.position += absoluteDirection;
+      HandleSnap();
+    }
+
 }
