@@ -88,7 +88,6 @@ public class TetrisBlockMovement : MonoBehaviour
       Vector3 absoluteDirection = inverseRotation * worldDirection;
 
       transform.position += absoluteDirection;
-      HandleSnap();
     }
 
 }

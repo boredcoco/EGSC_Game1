@@ -81,6 +81,11 @@ public class ParentController : MonoBehaviour
           childMovement.moveBlock(directionZ);
         }
       }
+
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.transform.position = findIdealPos(rb.transform.position);
+      }
     }
 
 
