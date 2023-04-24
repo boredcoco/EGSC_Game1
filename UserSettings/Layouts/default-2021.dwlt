@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1206
     height: 715
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Hierarchy
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 16
+  controlID: 73
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 285
     height: 665
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 17
+  controlID: 74
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 18
+  controlID: 75
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,22 +317,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Materials
+    - Assets/Prefabs/Tetris
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Materials
+  - Assets/Prefabs/Tetris
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/faithchua/EGSC_Game1
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 3c5e0000
-    m_LastClickedID: 24124
-    m_ExpandedIDs: 00000000205e0000225e0000245e0000265e0000285e00002a5e00002c5e00002e5e000000ca9a3b
+    m_SelectedIDs: b25f0000
+    m_LastClickedID: 24498
+    m_ExpandedIDs: 00000000925f0000945f0000965f0000985f00009a5f00009c5f00009e5f0000a05f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -360,7 +360,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000205e0000225e0000245e0000265e0000285e00002a5e00002c5e00002e5e0000
+    m_ExpandedIDs: 00000000925f0000945f0000965f0000985f00009a5f00009c5f00009e5f0000a05f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -412,7 +412,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 4}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 208
@@ -488,9 +488,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 825b0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 04e9ffff38fbffff385b0000
+      m_ExpandedIDs: ecfaffffbe5c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -739,9 +739,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.8294405, y: -5.3215795, z: -1.0406511}
+    m_Target: {x: -1.7630281, y: -6.575687, z: -0.8101787}
     speed: 2
-    m_Value: {x: -0.8294405, y: -5.3215795, z: -1.0406511}
+    m_Value: {x: -10.7, y: -6.2200003, z: -0.10999966}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -790,11 +790,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0, y: 1, z: 0, w: 0}
     speed: 2
-    m_Value: {x: 0, y: 1, z: 0, w: 0}
+    m_Value: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_Size:
-    m_Target: 3.3123474
+    m_Target: 2.044232
     speed: 2
-    m_Value: 3.3123474
+    m_Value: 1.3880265
   m_Ortho:
     m_Target: 0
     speed: 2
