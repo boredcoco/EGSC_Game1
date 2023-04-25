@@ -31,7 +31,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
         }
     }
 
-    private bool checkIfFloorIsBelow()
+    public bool checkIfFloorIsBelow()
     {
       // Calculate absolute direction based on current rotateion
       Vector3 worldDirection = transform.TransformDirection(Vector3.down);

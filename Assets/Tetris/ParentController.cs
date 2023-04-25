@@ -36,7 +36,6 @@ public class ParentController : MonoBehaviour
       {
         tetrisBlockSpawner = blockSpawner.GetComponent<TetrisBlockSpawner>();
       }
-
     }
 
 /*
@@ -126,9 +125,9 @@ public class ParentController : MonoBehaviour
       hasBeenRotated = false;
     }
 
-
     public void FreezeAllChildrenPositions()
     {
+      Debug.Log(hasBeenRotated);
       foreach(TetrisBlockMovement childMovement in childMovements)
       {
         if (childMovement != null)
@@ -165,10 +164,21 @@ public class ParentController : MonoBehaviour
       }
       // transform.Rotate(rotation.eulerAngles);
 
+      // check if we can rotate
+      foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
+      {
+        if (collisionHandler.checkIfWillHitSideWall(rotation.eulerAngles)
+        || collisionHandler.checkIfFloorIsBelow())
+        {
+          return;
+        }
+      }
+
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.rotation *= rotation;
         // rb.MoveRotation(rotation);
+        // rb.transform.Rotate(rotation.eulerAngles);
       }
 
       hasBeenRotated = true;
