@@ -38,58 +38,44 @@ public class ParentController : MonoBehaviour
       }
     }
 
-/*
     private void Update()
     {
+      if (isGrounded)
+      {
+        return;
+      }
       // Move along x-axis
       float horizontalInput = Input.GetAxis("Horizontal");
       int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
       Vector3 directionX = new Vector3(operationX, 0, 0);
 
-      if (!isGrounded)
-      {
-        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
-        {
-          if (cHandler.checkIfWillHitSideWall(directionX))
-          {
-            goto HandleZ;
-          }
-        }
-        foreach(TetrisBlockMovement childMovement in childMovements)
-        {
-          childMovement.moveBlock(directionX);
-        }
-      }
-
-      HandleZ:
       // Move along z-axis
       float verticalInput = Input.GetAxis("Vertical");
       int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
       Vector3 directionZ = new Vector3(0, 0, operationZ);
 
-      if (!isGrounded)
+      foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
       {
-        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
+        if (cHandler.checkIfWillHitSideWall(directionX)
+        || cHandler.checkIfFloorIsBelow())
         {
-          if (cHandler.checkIfWillHitSideWall(directionZ))
-          {
-            return;
-          }
+          directionX = new Vector3(0, 0, 0);
         }
-        foreach(TetrisBlockMovement childMovement in childMovements)
+        if (cHandler.checkIfWillHitSideWall(directionZ)
+        || cHandler.checkIfFloorIsBelow())
         {
-          childMovement.moveBlock(directionZ);
+          directionZ = new Vector3(0, 0, 0);
         }
+      }
+      foreach(TetrisBlockMovement childMovement in childMovements)
+      {
+        childMovement.moveBlock(directionX);
+        childMovement.moveBlock(directionZ);
       }
 
-      foreach(Rigidbody rb in childrenRbs)
-      {
-        rb.transform.position = findIdealPos(rb.transform.position);
-      }
     }
-*/
 
-
+/*
     private void FixedUpdate()
     {
       // Move along x-axis
@@ -111,23 +97,24 @@ public class ParentController : MonoBehaviour
         }
       }
     }
-
+*/
     private void LateUpdate()
     {
+      /*
       if (!hasBeenRotated)
       {
         return;
       }
+      */
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
       }
-      hasBeenRotated = false;
+      // hasBeenRotated = false;
     }
 
     public void FreezeAllChildrenPositions()
     {
-      Debug.Log(hasBeenRotated);
       foreach(TetrisBlockMovement childMovement in childMovements)
       {
         if (childMovement != null)

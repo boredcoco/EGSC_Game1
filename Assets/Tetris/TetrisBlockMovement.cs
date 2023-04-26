@@ -19,9 +19,12 @@ public class TetrisBlockMovement : MonoBehaviour
     // check if game over
     private GameObject stopPosition;
 
-    // snap to positions
+    // snap to positions (hardcoded)
     private float xOffset = -0.2f;
     private float zOffset = -0.2f;
+
+    // speed of downward movement
+    [SerializeField] private float downwardSpeed = 0.5f;
 
     private void Start()
     {
@@ -55,7 +58,7 @@ public class TetrisBlockMovement : MonoBehaviour
       Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
       Vector3 absoluteDirection = inverseRotation * worldDirection;
 
-      transform.position += absoluteDirection * Time.deltaTime;
+      transform.position += absoluteDirection * Time.deltaTime * downwardSpeed;
     }
 
     public void CheckIndividualPositions()
