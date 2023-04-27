@@ -56,13 +56,15 @@ public class ParentController : MonoBehaviour
 
       foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
       {
-        if (cHandler.checkIfWillHitSideWall(directionX)
-        || cHandler.checkIfFloorIsBelow())
+        if (cHandler.checkIfFloorIsBelow())
+        {
+          return;
+        }
+        if (cHandler.checkIfWillHitSideWall(directionX))
         {
           directionX = new Vector3(0, 0, 0);
         }
-        if (cHandler.checkIfWillHitSideWall(directionZ)
-        || cHandler.checkIfFloorIsBelow())
+        if (cHandler.checkIfWillHitSideWall(directionZ))
         {
           directionZ = new Vector3(0, 0, 0);
         }

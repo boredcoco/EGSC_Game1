@@ -31,6 +31,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
         }
     }
 
+/*
     public bool checkIfFloorIsBelow()
     {
       // Calculate absolute direction based on current rotateion
@@ -42,6 +43,28 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       if (Physics.Raycast(transform.position, absoluteDirection, out hit, Mathf.Infinity))
       {
           if (hit.distance < 0.5f && hit.transform.parent != gameObject.transform.parent)
+          {
+            return true;
+          }
+          return false;
+      }
+      return false;
+    }
+    */
+
+    public bool checkIfFloorIsBelow()
+    {
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(Vector3.down);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      RaycastHit hit;
+      bool hitDetect = Physics.BoxCast(transform.position, transform.localScale / 2, absoluteDirection, out hit, transform.rotation, Mathf.Infinity);
+
+      if (hitDetect)
+      {
+          if (hit.distance < 1f && hit.transform.parent != gameObject.transform.parent)
           {
             return true;
           }
