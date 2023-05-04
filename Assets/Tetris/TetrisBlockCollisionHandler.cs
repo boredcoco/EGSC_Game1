@@ -25,14 +25,17 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (parentController != null && checkIfFloorIsBelow() && collision.gameObject.tag == "Floor")
+      // change these conditions, especially the second one, shoudl only have one checkfloor func
+        if (parentController != null
+        && (checkIfFloorIsBelow() || checkIfFloorIsBelowRayCast())
+        && collision.gameObject.tag == "Floor")
         {
           parentController.FreezeAllChildrenPositions();
         }
     }
 
-/*
-    public bool checkIfFloorIsBelow()
+
+    public bool checkIfFloorIsBelowRayCast()
     {
       // Calculate absolute direction based on current rotateion
       Vector3 worldDirection = transform.TransformDirection(Vector3.down);
@@ -50,7 +53,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       }
       return false;
     }
-    */
+
 
     public bool checkIfFloorIsBelow()
     {
@@ -60,7 +63,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       Vector3 absoluteDirection = inverseRotation * worldDirection;
 
       RaycastHit hit;
-      bool hitDetect = Physics.BoxCast(transform.position, transform.localScale / 2, absoluteDirection, out hit, transform.rotation, Mathf.Infinity);
+      bool hitDetect = Physics.BoxCast(rb.transform.position, rb.transform.localScale / 2, absoluteDirection, out hit, rb.rotation, Mathf.Infinity);
 
       if (hitDetect)
       {
@@ -72,6 +75,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       }
       return false;
     }
+
 
     public bool checkIfWillHitSideWall(Vector3 dir)
     {
@@ -92,6 +96,30 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
           return false;
       }
       return false;
+    }
+
+    public float getClosestBottomCoordinate()
+    {
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(Vector3.down);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      RaycastHit hit;
+      bool hitDetect = Physics.BoxCast(transform.position, transform.localScale / 2, absoluteDirection, out hit, transform.rotation, Mathf.Infinity);
+
+      if (hitDetect)
+      {
+          if (hit.transform.gameObject.name == "Floor") {
+            return transform.position.y - hit.transform.position.y - (transform.localScale.y / 2);
+          }
+          if (hit.transform.parent != gameObject.transform.parent)
+          {
+            return transform.position.y - hit.transform.position.y - (transform.localScale.y);
+          }
+          return Mathf.Infinity;
+      }
+      return Mathf.Infinity;
     }
 
     public void moveDownwardByOne()

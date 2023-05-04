@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!138 &6477693382580232595
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -356,6 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!114 &6131606974747390650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!114 &8334755796556522597
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -42,7 +42,7 @@ public class TetrisBlockMovement : MonoBehaviour
     private void FixedUpdate()
     {
       // downward movement
-      Vector3 force = new Vector3(0, -1 * movementSpeed, 0);
+      Vector3 force = new Vector3(0, -10000f, 0);
       rb.AddForce(force, ForceMode.VelocityChange);
     }
     */
@@ -91,6 +91,13 @@ public class TetrisBlockMovement : MonoBehaviour
       Vector3 absoluteDirection = inverseRotation * worldDirection;
 
       transform.position += absoluteDirection;
+    }
+
+    public void placeFast(Vector3 destination)
+    {
+      // find nearest floor tile
+      // change local transform to that location
+      transform.position = destination;
     }
 
 }

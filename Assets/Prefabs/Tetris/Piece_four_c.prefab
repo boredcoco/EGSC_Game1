@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!138 &480743644613957669
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -310,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!54 &337364439587757953
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -518,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!138 &3455136720593027436
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -742,6 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.02
+  downwardSpeed: 0.2
 --- !u!54 &7200681067145441945
 Rigidbody:
   m_ObjectHideFlags: 0

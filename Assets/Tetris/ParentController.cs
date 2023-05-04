@@ -21,9 +21,6 @@ public class ParentController : MonoBehaviour
     private float[] xPositions = {0.2f, -0.8f, -1.8f};
     private float[] zPositions = {-0.8f, -1.8f, -2.8f};
 
-    // for rotation
-    private bool hasBeenRotated = false;
-
     private void Start()
     {
       childrenRbs = GetComponentsInChildren<Rigidbody>();
@@ -42,6 +39,22 @@ public class ParentController : MonoBehaviour
     {
       if (isGrounded)
       {
+        return;
+      }
+      // handle the case where space is pressed to drop
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+        float currentSmallest = Mathf.Infinity;
+        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
+        {
+          float res = cHandler.getClosestBottomCoordinate();
+          currentSmallest = res < currentSmallest ? res : currentSmallest;
+        }
+        foreach(TetrisBlockMovement childMovement in childMovements)
+        {
+          childMovement.moveBlock(new Vector3(0, -currentSmallest, 0));
+        }
+        FreezeAllChildrenPositions();
         return;
       }
       // Move along x-axis
@@ -102,17 +115,10 @@ public class ParentController : MonoBehaviour
 */
     private void LateUpdate()
     {
-      /*
-      if (!hasBeenRotated)
-      {
-        return;
-      }
-      */
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
       }
-      // hasBeenRotated = false;
     }
 
     public void FreezeAllChildrenPositions()
@@ -170,7 +176,6 @@ public class ParentController : MonoBehaviour
         // rb.transform.Rotate(rotation.eulerAngles);
       }
 
-      hasBeenRotated = true;
     }
 
     private void clearLayer(GameObject block)
