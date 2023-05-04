@@ -160,14 +160,14 @@ public class ParentController : MonoBehaviour
       // transform.Rotate(rotation.eulerAngles);
 
       // check if we can rotate
-      foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
-      {
-        if (collisionHandler.checkIfWillHitSideWall(rotation.eulerAngles)
-        || collisionHandler.checkIfFloorIsBelow())
-        {
-          return;
-        }
-      }
+      // foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
+      // {
+      //   if (collisionHandler.checkIfWillHitSideWall(rotation.eulerAngles)
+      //   || collisionHandler.checkIfFloorIsBelow())
+      //   {
+      //     return;
+      //   }
+      // }
 
       foreach(Rigidbody rb in childrenRbs)
       {
@@ -181,7 +181,8 @@ public class ParentController : MonoBehaviour
     private void clearLayer(GameObject block)
     {
         Vector3 center = block.transform.TransformPoint(Vector3.zero);
-        float radius = 3;
+        float radius = 10f;
+        // Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 
         // filter for ideal yCoordinate
@@ -191,7 +192,6 @@ public class ParentController : MonoBehaviour
             hitCollider.gameObject.transform.TransformPoint(Vector3.zero).y - layer) < 0.1f
             && hitCollider.gameObject.tag == "Floor"
             && hitCollider.gameObject.name != "Floor");
-
 
         if (hitCollidersWithSameLayer.Length < 9)
         {

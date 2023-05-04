@@ -93,11 +93,5 @@ public class TetrisBlockMovement : MonoBehaviour
       transform.position += absoluteDirection;
     }
 
-    public void placeFast(Vector3 destination)
-    {
-      // find nearest floor tile
-      // change local transform to that location
-      transform.position = destination;
-    }
 
 }
