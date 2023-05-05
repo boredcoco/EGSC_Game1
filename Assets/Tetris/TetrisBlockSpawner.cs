@@ -20,6 +20,9 @@ public class TetrisBlockSpawner : MonoBehaviour
     // for layer clearing
     private HashSet<int> layersCleared = new HashSet<int>();
 
+    // for score updates
+    [SerializeField] private ScoreHandler scoreHandler;
+
     private void Start()
     {
       currentTime = spawnDuration;
@@ -66,7 +69,7 @@ public class TetrisBlockSpawner : MonoBehaviour
       {
         return;
       }
-      currentBlock.GetComponent<ParentController>().RotateAlongX();
+      currentBlock.GetComponent<ParentController>().RotateAlong(Quaternion.Euler(90, 0, 0));
     }
 
     public void RotateAlongY()
@@ -75,7 +78,7 @@ public class TetrisBlockSpawner : MonoBehaviour
       {
         return;
       }
-      currentBlock.GetComponent<ParentController>().RotateAlongY();
+      currentBlock.GetComponent<ParentController>().RotateAlong(Quaternion.Euler(0, 90, 0));
     }
 
     public void RotateAlongZ()
@@ -84,7 +87,7 @@ public class TetrisBlockSpawner : MonoBehaviour
       {
         return;
       }
-      currentBlock.GetComponent<ParentController>().RotateAlongZ();
+      currentBlock.GetComponent<ParentController>().RotateAlong(Quaternion.Euler(0, 0, 90));
     }
 
     public void SetClearedLayers(HashSet<int> layers)
@@ -111,5 +114,10 @@ public class TetrisBlockSpawner : MonoBehaviour
       }
       layersCleared = new HashSet<int>();
 
+    }
+
+    public void UpdateScore()
+    {
+      scoreHandler.UpdateScore();
     }
 }

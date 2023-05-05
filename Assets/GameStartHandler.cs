@@ -14,4 +14,9 @@ public class GameStartHandler : MonoBehaviour
     {
       SceneManager.LoadScene("JigsawPuzzle");
     }
+
+    public void LoadTetris3D()
+    {
+      SceneManager.LoadScene("Tetris3D");
+    }
 }
