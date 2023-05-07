@@ -107,17 +107,26 @@ public class ParentController : MonoBehaviour
       {
         rb.rotation *= currentRotation;
         // rb.MoveRotation(currentRotation);
-        // rb.transform.Rotate(rotation.eulerAngles);
       }
       currentRotation = Quaternion.identity;
     }
 
+
     private void LateUpdate()
     {
+
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
+        // rb.transform.position = handleSnap(rb.transform.position);
       }
+
+      /*
+      foreach(TetrisBlockMovement childMovement in childMovements)
+      {
+        childMovement.HandleSnap();
+      }
+      */
     }
 
     public void FreezeAllChildrenPositions()
@@ -214,8 +223,8 @@ public class ParentController : MonoBehaviour
 
     public Vector3 handleSnap(Vector3 currentPos)
     {
-      Vector3 roundedPos = new Vector3(Mathf.Round(currentPos.x),
-                            currentPos.y, Mathf.Round(currentPos.z));
+      Vector3 roundedPos = new Vector3(Mathf.Round(currentPos.x) + 0.2f,
+                            currentPos.y, Mathf.Round(currentPos.z) + 0.2f);
       return roundedPos;
     }
 
