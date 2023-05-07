@@ -14,8 +14,8 @@ public class ParentController : MonoBehaviour
 
     private HashSet<int> layersCleared = new HashSet<int>();
 
-    // for horitzontal and vertical movement
-    [SerializeField] private float force = 1f;
+    // for rotation
+    private Quaternion currentRotation = Quaternion.identity;
 
     // for position snapping
     private float[] xPositions = {0.2f, -0.8f, -1.8f};
@@ -90,29 +90,28 @@ public class ParentController : MonoBehaviour
 
     }
 
-/*
+
     private void FixedUpdate()
     {
-      // Move along x-axis
-      float horizontalInput = Input.GetAxis("Horizontal");
-      int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
-      Vector3 directionX = new Vector3(operationX * force, 0, 0);
-
-      // Move along z-axis
-      float verticalInput = Input.GetAxis("Vertical");
-      int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
-      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
-
-      if (!isGrounded)
+      foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
       {
-        foreach(Rigidbody rb in childrenRbs)
+        if (collisionHandler.checkIfFloorIsBelow())
         {
-          rb.AddForce(directionZ, ForceMode.VelocityChange);
-          rb.AddForce(directionX, ForceMode.VelocityChange);
+          currentRotation = Quaternion.identity;
+          return;
         }
       }
+
+      // handle rotation
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.rotation *= currentRotation;
+        // rb.MoveRotation(currentRotation);
+        // rb.transform.Rotate(rotation.eulerAngles);
+      }
+      currentRotation = Quaternion.identity;
     }
-*/
+
     private void LateUpdate()
     {
       foreach(Rigidbody rb in childrenRbs)
@@ -157,25 +156,7 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
-      // transform.Rotate(rotation.eulerAngles);
-
-      // check if we can rotate
-      // foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
-      // {
-      //   if (collisionHandler.checkIfWillHitSideWall(rotation.eulerAngles)
-      //   || collisionHandler.checkIfFloorIsBelow())
-      //   {
-      //     return;
-      //   }
-      // }
-
-      foreach(Rigidbody rb in childrenRbs)
-      {
-        rb.rotation *= rotation;
-        // rb.MoveRotation(rotation);
-        // rb.transform.Rotate(rotation.eulerAngles);
-      }
-
+      currentRotation *= rotation;
     }
 
     private void clearLayer(GameObject block)

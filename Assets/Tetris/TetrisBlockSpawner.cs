@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class TetrisBlockSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject SpawnLocation;
-
     // Timer
     [SerializeField] private float spawnDuration = 3f;
     private float currentTime;
