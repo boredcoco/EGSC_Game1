@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7153226978229971121}
   - component: {fileID: 7153226978229971120}
   - component: {fileID: 7153226978229971087}
-  - component: {fileID: 7153226978229971086}
   - component: {fileID: 1502081885772992762}
   - component: {fileID: 6353336530368286472}
   - component: {fileID: 6223835679906677333}
@@ -104,24 +103,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.97101957, y: 1, z: 0.9685215}
   m_Center: {x: 0.0003968345, y: 0, z: -0.015739601}
---- !u!114 &7153226978229971086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7153226978229971084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!54 &1502081885772992762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -221,7 +202,6 @@ GameObject:
   - component: {fileID: 7153226978890176297}
   - component: {fileID: 7153226978890176296}
   - component: {fileID: 7153226978890176295}
-  - component: {fileID: 7153226978890176294}
   - component: {fileID: 967270928479669675}
   - component: {fileID: 7212043704697055807}
   - component: {fileID: 8019535793895579885}
@@ -311,24 +291,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.9689848}
   m_Center: {x: 0, y: 0, z: 0.015507689}
---- !u!114 &7153226978890176294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7153226978890176292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!54 &967270928479669675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -434,7 +396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292e52f432de64dd5868107a06f66005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 1
 --- !u!1 &7153226979700251192
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +408,6 @@ GameObject:
   - component: {fileID: 7153226979700251197}
   - component: {fileID: 7153226979700251196}
   - component: {fileID: 7153226979700251195}
-  - component: {fileID: 7153226979700251194}
   - component: {fileID: 2494724072361450531}
   - component: {fileID: 4989033490478345778}
   - component: {fileID: 1807955454195845172}
@@ -537,24 +497,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9608856, y: 1, z: 1}
   m_Center: {x: 0.01955741, y: 0, z: 0}
---- !u!114 &7153226979700251194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7153226979700251192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!54 &2494724072361450531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -624,7 +566,6 @@ GameObject:
   - component: {fileID: 7153226980152885967}
   - component: {fileID: 7153226980152885966}
   - component: {fileID: 7153226980152885965}
-  - component: {fileID: 7153226980152885964}
   - component: {fileID: 7231980352987746498}
   - component: {fileID: 7395184948826161876}
   - component: {fileID: 7247960442395353005}
@@ -714,24 +655,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9667209, y: 1, z: 1}
   m_Center: {x: -0.016639648, y: 0, z: 0}
---- !u!114 &7153226980152885964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7153226980152885962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!54 &7231980352987746498
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4960566789132601286}
   - component: {fileID: 4960566789132601306}
   - component: {fileID: 4960566789132601307}
-  - component: {fileID: 4960566789132601285}
   - component: {fileID: 9055330281246853431}
   - component: {fileID: 2609141950138659916}
   - component: {fileID: 581468926386591966}
@@ -89,24 +88,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4960566789132601285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960566789132601287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!54 &9055330281246853431
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,7 +169,6 @@ GameObject:
   - component: {fileID: 4960566789263320824}
   - component: {fileID: 4960566789263320828}
   - component: {fileID: 4960566789263320829}
-  - component: {fileID: 4960566789263320831}
   - component: {fileID: 7942056390493670505}
   - component: {fileID: 1837536921966118237}
   - component: {fileID: 5679886532433646865}
@@ -266,24 +246,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4960566789263320831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960566789263320825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &7942056390493670505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,4 +362,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292e52f432de64dd5868107a06f66005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 1
