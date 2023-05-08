@@ -122,17 +122,16 @@ public class ParentController : MonoBehaviour
 
     private void LateUpdate()
     {
-      Vector3 rootElemPos = findIdealPos(rootElement.transform.position);
-      rootElement.transform.position = rootElemPos;
+      // Vector3 rootElemPos = findIdealPos(rootElement.transform.position);
+      // rootElement.transform.position = rootElemPos;
       // Vector3 rootElemPos = new Vector3(-0.8f, rootElement.transform.position.y, -1.8f);
+      Physics.SyncTransforms();
 
-/*
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
-        // rb.transform.position = handleSnap(rb.transform.position);
       }
-      */
+
     }
 
     public void FreezeAllChildrenPositions()
