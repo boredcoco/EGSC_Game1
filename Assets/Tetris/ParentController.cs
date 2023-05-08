@@ -18,11 +18,14 @@ public class ParentController : MonoBehaviour
     private Quaternion currentRotation = Quaternion.identity;
 
     // for position snapping
+    [SerializeField] private GameObject rootElement;
+    private Vector3 lastPos;
     private float[] xPositions = {0.2f, -0.8f, -1.8f};
     private float[] zPositions = {-0.8f, -1.8f, -2.8f};
 
     private void Start()
     {
+      lastPos = rootElement.transform.position;
       childrenRbs = GetComponentsInChildren<Rigidbody>();
       childMovements = GetComponentsInChildren<TetrisBlockMovement>();
       childCollisionHandlers = GetComponentsInChildren<TetrisBlockCollisionHandler>();
@@ -93,6 +96,11 @@ public class ParentController : MonoBehaviour
 
     private void FixedUpdate()
     {
+      if (currentRotation == Quaternion.identity)
+      {
+        return;
+      }
+
       foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
       {
         if (collisionHandler.checkIfFloorIsBelow())
@@ -101,6 +109,7 @@ public class ParentController : MonoBehaviour
           return;
         }
       }
+      lastPos = rootElement.transform.position;
 
       // handle rotation
       foreach(Rigidbody rb in childrenRbs)
@@ -111,20 +120,17 @@ public class ParentController : MonoBehaviour
       currentRotation = Quaternion.identity;
     }
 
-
     private void LateUpdate()
     {
+      Vector3 rootElemPos = findIdealPos(rootElement.transform.position);
+      rootElement.transform.position = rootElemPos;
+      // Vector3 rootElemPos = new Vector3(-0.8f, rootElement.transform.position.y, -1.8f);
 
+/*
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
         // rb.transform.position = handleSnap(rb.transform.position);
-      }
-
-      /*
-      foreach(TetrisBlockMovement childMovement in childMovements)
-      {
-        childMovement.HandleSnap();
       }
       */
     }
@@ -135,7 +141,6 @@ public class ParentController : MonoBehaviour
       {
         if (childMovement != null)
         {
-          // childMovement.HandleSnap();
           childMovement.CheckIndividualPositions();
           childMovement.changeTag("Floor");
         }
@@ -144,7 +149,7 @@ public class ParentController : MonoBehaviour
       {
         if (rb != null)
         {
-          rb.transform.position = findIdealPos(rb.transform.position);
+          // rb.transform.position = findIdealPos(rb.transform.position);
           rb.isKinematic = true;
           clearLayer(rb.gameObject);
         }
