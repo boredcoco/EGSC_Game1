@@ -44,6 +44,7 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
+      Physics.SyncTransforms();
       // handle the case where space is pressed to drop
       if (Input.GetKeyDown(KeyCode.Space))
       {
@@ -115,7 +116,6 @@ public class ParentController : MonoBehaviour
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.rotation *= currentRotation;
-        // rb.MoveRotation(currentRotation);
       }
       currentRotation = Quaternion.identity;
     }
@@ -125,7 +125,7 @@ public class ParentController : MonoBehaviour
       // Vector3 rootElemPos = findIdealPos(rootElement.transform.position);
       // rootElement.transform.position = rootElemPos;
       // Vector3 rootElemPos = new Vector3(-0.8f, rootElement.transform.position.y, -1.8f);
-      Physics.SyncTransforms();
+      // Physics.SyncTransforms();
 
       foreach(Rigidbody rb in childrenRbs)
       {
