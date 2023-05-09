@@ -12,9 +12,14 @@ public class ParentController : MonoBehaviour
 
     private bool isGrounded = false;
 
+    private HashSet<int> layersCleared = new HashSet<int>();
+
+    // for horitzontal and vertical movement
     [SerializeField] private float force = 1f;
 
-    private HashSet<int> layersCleared = new HashSet<int>();
+    // for position snapping
+    private float[] xPositions = {0.2f, -0.8f, -1.8f};
+    private float[] zPositions = {-0.8f, -1.8f, -2.8f};
 
     private void Start()
     {
@@ -28,23 +33,70 @@ public class ParentController : MonoBehaviour
       {
         tetrisBlockSpawner = blockSpawner.GetComponent<TetrisBlockSpawner>();
       }
+    }
+
+    private void Update()
+    {
+      if (isGrounded)
+      {
+        return;
+      }
+      // handle the case where space is pressed to drop
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+        float currentSmallest = Mathf.Infinity;
+        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
+        {
+          float res = cHandler.getClosestBottomCoordinate();
+          currentSmallest = res < currentSmallest ? res : currentSmallest;
+        }
+        foreach(TetrisBlockMovement childMovement in childMovements)
+        {
+          childMovement.moveBlock(new Vector3(0, -currentSmallest, 0));
+        }
+        FreezeAllChildrenPositions();
+        return;
+      }
+      // Move along x-axis
+      float horizontalInput = Input.GetAxis("Horizontal");
+      int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
+      Vector3 directionX = new Vector3(operationX, 0, 0);
+
+      // Move along z-axis
+      float verticalInput = Input.GetAxis("Vertical");
+      int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
+      Vector3 directionZ = new Vector3(0, 0, operationZ);
+
+      foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
+      {
+        if (cHandler.checkIfFloorIsBelow())
+        {
+          return;
+        }
+        if (cHandler.checkIfWillHitSideWall(directionX))
+        {
+          directionX = new Vector3(0, 0, 0);
+        }
+        if (cHandler.checkIfWillHitSideWall(directionZ))
+        {
+          directionZ = new Vector3(0, 0, 0);
+        }
+      }
+      foreach(TetrisBlockMovement childMovement in childMovements)
+      {
+        childMovement.moveBlock(directionX);
+        childMovement.moveBlock(directionZ);
+      }
 
     }
 
+/*
     private void FixedUpdate()
     {
       // Move along x-axis
       float horizontalInput = Input.GetAxis("Horizontal");
       int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
       Vector3 directionX = new Vector3(operationX * force, 0, 0);
-
-      if (!isGrounded)
-      {
-        foreach(Rigidbody rb in childrenRbs)
-        {
-          rb.AddForce(directionX, ForceMode.VelocityChange);
-        }
-      }
 
       // Move along z-axis
       float verticalInput = Input.GetAxis("Vertical");
@@ -56,56 +108,18 @@ public class ParentController : MonoBehaviour
         foreach(Rigidbody rb in childrenRbs)
         {
           rb.AddForce(directionZ, ForceMode.VelocityChange);
+          rb.AddForce(directionX, ForceMode.VelocityChange);
         }
       }
     }
-
-/*
-    private void Update()
+*/
+    private void LateUpdate()
     {
-      // Move along x-axis
-      float horizontalInput = Input.GetAxis("Horizontal");
-      int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
-      Vector3 directionX = new Vector3(operationX * force, 0, 0);
-
-      if (!isGrounded)
+      foreach(Rigidbody rb in childrenRbs)
       {
-        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
-        {
-          if (cHandler.checkIfWillHitSideWall(directionX))
-          {
-            goto HandleZ;
-          }
-        }
-        foreach(TetrisBlockMovement childMovement in childMovements)
-        {
-          childMovement.moveBlock(directionX);
-        }
-      }
-
-      HandleZ:
-      // Move along z-axis
-      float verticalInput = Input.GetAxis("Vertical");
-      int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
-      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
-
-      if (!isGrounded)
-      {
-        foreach(TetrisBlockCollisionHandler cHandler in childCollisionHandlers)
-        {
-          if (cHandler.checkIfWillHitSideWall(directionZ))
-          {
-            return;
-          }
-        }
-        foreach(TetrisBlockMovement childMovement in childMovements)
-        {
-          childMovement.moveBlock(directionZ);
-        }
+        rb.transform.position = findIdealPos(rb.transform.position);
       }
     }
-    */
-
 
     public void FreezeAllChildrenPositions()
     {
@@ -113,7 +127,8 @@ public class ParentController : MonoBehaviour
       {
         if (childMovement != null)
         {
-          childMovement.HandleSnap();
+          // childMovement.HandleSnap();
+          childMovement.CheckIndividualPositions();
           childMovement.changeTag("Floor");
         }
       }
@@ -121,7 +136,7 @@ public class ParentController : MonoBehaviour
       {
         if (rb != null)
         {
-          // rb.constraints = RigidbodyConstraints.FreezePosition;
+          rb.transform.position = findIdealPos(rb.transform.position);
           rb.isKinematic = true;
           clearLayer(rb.gameObject);
         }
@@ -136,52 +151,38 @@ public class ParentController : MonoBehaviour
       Destroy(gameObject);
     }
 
-    public void RotateAlongX()
+    public void RotateAlong(Quaternion rotation)
     {
       if (isGrounded)
       {
         return;
       }
+      // transform.Rotate(rotation.eulerAngles);
 
-      Quaternion rotation = Quaternion.Euler(90, 0, 0);
+      // check if we can rotate
+      // foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
+      // {
+      //   if (collisionHandler.checkIfWillHitSideWall(rotation.eulerAngles)
+      //   || collisionHandler.checkIfFloorIsBelow())
+      //   {
+      //     return;
+      //   }
+      // }
+
       foreach(Rigidbody rb in childrenRbs)
       {
-        rb.rotation = rb.rotation * rotation;
-      }
-    }
-
-    public void RotateAlongY()
-    {
-      if (isGrounded)
-      {
-        return;
+        rb.rotation *= rotation;
+        // rb.MoveRotation(rotation);
+        // rb.transform.Rotate(rotation.eulerAngles);
       }
 
-      Quaternion rotation = Quaternion.Euler(0, 90, 0);
-      foreach(Rigidbody rb in childrenRbs)
-      {
-        rb.rotation = rb.rotation * rotation;
-      }
-    }
-
-    public void RotateAlongZ()
-    {
-      if (isGrounded)
-      {
-        return;
-      }
-
-      Quaternion rotation = Quaternion.Euler(0, 0, 90);
-      foreach(Rigidbody rb in childrenRbs)
-      {
-        rb.rotation = rb.rotation * rotation;
-      }
     }
 
     private void clearLayer(GameObject block)
     {
         Vector3 center = block.transform.TransformPoint(Vector3.zero);
-        float radius = 3;
+        float radius = 10f;
+        // Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 
         // filter for ideal yCoordinate
@@ -192,7 +193,6 @@ public class ParentController : MonoBehaviour
             && hitCollider.gameObject.tag == "Floor"
             && hitCollider.gameObject.name != "Floor");
 
-
         if (hitCollidersWithSameLayer.Length < 9)
         {
           return;
@@ -201,10 +201,41 @@ public class ParentController : MonoBehaviour
         // clear layer
         foreach (Collider hitCollider in hitCollidersWithSameLayer)
         {
-            hitCollider.gameObject.SetActive(false);
-            // Destroy(hitCollider.gameObject);
+            Destroy(hitCollider.gameObject);
+            // hitCollider.gameObject.SetActive(false);
         }
         layersCleared.Add((int) Mathf.Round(layer));
+
+        // update score
+        tetrisBlockSpawner.UpdateScore();
+    }
+
+    private Vector3 findIdealPos(Vector3 currentPos)
+    {
+      Vector3 currentVector = new Vector3(xPositions[0], currentPos.y, zPositions[0]);
+      float currentLowest = Vector3.Distance(new Vector3(xPositions[0], currentPos.y, zPositions[0]), currentPos);
+
+      foreach(float xPos in xPositions)
+      {
+        foreach(float zPos in zPositions)
+        {
+          float distBetween = Vector3.Distance(new Vector3(xPos, currentPos.y, zPos), currentPos);
+          if (distBetween < currentLowest)
+          {
+            currentVector = new Vector3(xPos, currentPos.y, zPos);
+            currentLowest = distBetween;
+          }
+        }
+      }
+
+      return currentVector;
+    }
+
+    public Vector3 handleSnap(Vector3 currentPos)
+    {
+      Vector3 roundedPos = new Vector3(Mathf.Round(currentPos.x),
+                            currentPos.y, Mathf.Round(currentPos.z));
+      return roundedPos;
     }
 
 }
