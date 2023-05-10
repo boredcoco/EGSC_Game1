@@ -14,15 +14,18 @@ public class ParentController : MonoBehaviour
 
     private HashSet<int> layersCleared = new HashSet<int>();
 
-    // for horitzontal and vertical movement
-    [SerializeField] private float force = 1f;
+    // for rotation
+    private Quaternion currentRotation = Quaternion.identity;
 
     // for position snapping
+    [SerializeField] private GameObject rootElement;
+    private Vector3 lastPos;
     private float[] xPositions = {0.2f, -0.8f, -1.8f};
     private float[] zPositions = {-0.8f, -1.8f, -2.8f};
 
     private void Start()
     {
+      lastPos = rootElement.transform.position;
       childrenRbs = GetComponentsInChildren<Rigidbody>();
       childMovements = GetComponentsInChildren<TetrisBlockMovement>();
       childCollisionHandlers = GetComponentsInChildren<TetrisBlockCollisionHandler>();
@@ -41,6 +44,7 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
+      Physics.SyncTransforms();
       // handle the case where space is pressed to drop
       if (Input.GetKeyDown(KeyCode.Space))
       {
@@ -90,35 +94,44 @@ public class ParentController : MonoBehaviour
 
     }
 
-/*
+
     private void FixedUpdate()
     {
-      // Move along x-axis
-      float horizontalInput = Input.GetAxis("Horizontal");
-      int operationX = horizontalInput < 0 ? 1 : horizontalInput > 0 ? -1 : 0;
-      Vector3 directionX = new Vector3(operationX * force, 0, 0);
-
-      // Move along z-axis
-      float verticalInput = Input.GetAxis("Vertical");
-      int operationZ = verticalInput < 0 ? 1 : verticalInput > 0 ? -1 : 0;
-      Vector3 directionZ = new Vector3(0, 0, operationZ * force);
-
-      if (!isGrounded)
+      if (currentRotation == Quaternion.identity)
       {
-        foreach(Rigidbody rb in childrenRbs)
+        return;
+      }
+
+      foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
+      {
+        if (collisionHandler.checkIfFloorIsBelow())
         {
-          rb.AddForce(directionZ, ForceMode.VelocityChange);
-          rb.AddForce(directionX, ForceMode.VelocityChange);
+          currentRotation = Quaternion.identity;
+          return;
         }
       }
+      lastPos = rootElement.transform.position;
+
+      // handle rotation
+      foreach(Rigidbody rb in childrenRbs)
+      {
+        rb.rotation *= currentRotation;
+      }
+      currentRotation = Quaternion.identity;
     }
-*/
+
     private void LateUpdate()
     {
+      // Vector3 rootElemPos = findIdealPos(rootElement.transform.position);
+      // rootElement.transform.position = rootElemPos;
+      // Vector3 rootElemPos = new Vector3(-0.8f, rootElement.transform.position.y, -1.8f);
+      // Physics.SyncTransforms();
+
       foreach(Rigidbody rb in childrenRbs)
       {
         rb.transform.position = findIdealPos(rb.transform.position);
       }
+
     }
 
     public void FreezeAllChildrenPositions()
@@ -127,7 +140,6 @@ public class ParentController : MonoBehaviour
       {
         if (childMovement != null)
         {
-          // childMovement.HandleSnap();
           childMovement.CheckIndividualPositions();
           childMovement.changeTag("Floor");
         }
@@ -136,7 +148,7 @@ public class ParentController : MonoBehaviour
       {
         if (rb != null)
         {
-          rb.transform.position = findIdealPos(rb.transform.position);
+          // rb.transform.position = findIdealPos(rb.transform.position);
           rb.isKinematic = true;
           clearLayer(rb.gameObject);
         }
@@ -157,25 +169,7 @@ public class ParentController : MonoBehaviour
       {
         return;
       }
-      // transform.Rotate(rotation.eulerAngles);
-
-      // check if we can rotate
-      // foreach(TetrisBlockCollisionHandler collisionHandler in childCollisionHandlers)
-      // {
-      //   if (collisionHandler.checkIfWillHitSideWall(rotation.eulerAngles)
-      //   || collisionHandler.checkIfFloorIsBelow())
-      //   {
-      //     return;
-      //   }
-      // }
-
-      foreach(Rigidbody rb in childrenRbs)
-      {
-        rb.rotation *= rotation;
-        // rb.MoveRotation(rotation);
-        // rb.transform.Rotate(rotation.eulerAngles);
-      }
-
+      currentRotation *= rotation;
     }
 
     private void clearLayer(GameObject block)
@@ -233,8 +227,8 @@ public class ParentController : MonoBehaviour
 
     public Vector3 handleSnap(Vector3 currentPos)
     {
-      Vector3 roundedPos = new Vector3(Mathf.Round(currentPos.x),
-                            currentPos.y, Mathf.Round(currentPos.z));
+      Vector3 roundedPos = new Vector3(Mathf.Round(currentPos.x) + 0.2f,
+                            currentPos.y, Mathf.Round(currentPos.z) + 0.2f);
       return roundedPos;
     }
 
