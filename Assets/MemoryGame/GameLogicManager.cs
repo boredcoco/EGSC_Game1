@@ -119,4 +119,9 @@ public class GameLogicManager : MonoBehaviour
       SceneManager.LoadScene("MemoryGameSettings");
     }
 
+    public void ReturnToMenu()
+    {
+      SceneManager.LoadScene("GameStart");
+    }
+
 }
