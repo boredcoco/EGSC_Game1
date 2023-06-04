@@ -8,19 +8,16 @@ public class MenuItem : MonoBehaviour
     [SerializeField] private MemoryGameSettings settings;
     [SerializeField] private string filepath;
 
-    private Image image;
-    private bool isChosen = false;
+    // handles selection
+    [SerializeField] private GameObject selectBubble;
 
-    private void Start()
-    {
-      image = GetComponent<Image>();
-    }
+    private bool isChosen = false;
 
     private void handleSelect()
     {
       if (settings.Select(filepath))
       {
-        image.color = Color.blue;
+        selectBubble.SetActive(true);
         isChosen = true;
       }
     }
@@ -29,7 +26,7 @@ public class MenuItem : MonoBehaviour
     {
       if (settings.Deselect())
       {
-        image.color = Color.white;
+        selectBubble.SetActive(false);
         isChosen = false;
       }
     }
