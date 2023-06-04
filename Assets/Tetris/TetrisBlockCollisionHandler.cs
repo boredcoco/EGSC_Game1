@@ -89,7 +89,7 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
 
       if (hitDetect)
       {
-          if (hit.distance < 1f && hit.transform.parent != gameObject.transform.parent)
+          if (hit.distance < 0.95f && hit.transform.parent != gameObject.transform.parent)
           {
             return true;
           }
@@ -111,11 +111,11 @@ public class TetrisBlockCollisionHandler : MonoBehaviour
       if (hitDetect)
       {
           if (hit.transform.gameObject.name == "Floor") {
-            return transform.position.y - hit.transform.position.y - (transform.localScale.y / 2);
+            return transform.position.y - hit.transform.position.y - (0.5f);
           }
           if (hit.transform.parent != gameObject.transform.parent)
           {
-            return transform.position.y - hit.transform.position.y - (transform.localScale.y);
+            return transform.position.y - hit.transform.position.y - 1;
           }
           return Mathf.Infinity;
       }

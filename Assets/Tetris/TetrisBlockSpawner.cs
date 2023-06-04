@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class TetrisBlockSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject SpawnLocation;
-
     // Timer
     [SerializeField] private float spawnDuration = 3f;
     private float currentTime;
@@ -110,7 +108,7 @@ public class TetrisBlockSpawner : MonoBehaviour
       {
         int[] layersAbove = Array.FindAll(allEntries,
           layer => currentBlock.transform.position.y - layer > 0.5f);
-        currentBlock.transform.position += new Vector3(0, -0.9f * layersAbove.Length, 0);
+        currentBlock.transform.position += new Vector3(0, -1f * layersAbove.Length, 0);
       }
       layersCleared = new HashSet<int>();
 
