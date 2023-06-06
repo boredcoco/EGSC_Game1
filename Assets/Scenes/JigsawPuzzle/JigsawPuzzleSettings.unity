@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1221,9 +1221,15 @@ MonoBehaviour:
   filepaths:
   - Puzzlepics/mbs
   - Puzzlepics/gbtb
+  - Puzzlepics/sbg
+  - Puzzlepics/merlion
+  - Puzzlepics/cathedral
   displayText:
   - Marina Bay Sands
   - Gardens by the Bay
+  - Botanic Gardens
+  - Merlion
+  - Saint Andrew's Cathedral
   textDisplayed: {fileID: 2077534352}
   imageDisplayed: {fileID: 1425026303}
 --- !u!4 &1894520949
