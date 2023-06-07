@@ -5,7 +5,6 @@ public class PauseScript : MonoBehaviour
 {
     public static bool gameIsPaused = false;
     public Button pause;
-    public Text PauseText;
     public GameObject PausePopup;
 
     void Start()
@@ -32,7 +31,6 @@ public class PauseScript : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameIsPaused = false;
-        PauseText.text = "Pause"; 
         PausePopup.SetActive(false);
     }
 
@@ -40,7 +38,6 @@ public class PauseScript : MonoBehaviour
     {
         Time.timeScale = 0f;
         gameIsPaused = true;
-        PauseText.text = "Resume"; 
         PausePopup.SetActive(true);
     }
 }
