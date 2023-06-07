@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class TetrisBlockMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 1f;
-
     private Rigidbody rb;
 
     private ParentController parentController;
@@ -37,16 +35,38 @@ public class TetrisBlockMovement : MonoBehaviour
 
       stopPosition = GameObject.Find("StopPosition");
     }
-
 /*
     private void FixedUpdate()
     {
-      // downward movement
-      Vector3 force = new Vector3(0, -10000f, 0);
+      if (isGrounded)
+      {
+        return;
+      }
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(Vector3.down);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      Vector3 force = absoluteDirection * Time.deltaTime * downwardSpeed;
       rb.AddForce(force, ForceMode.VelocityChange);
     }
-    */
+*/
 
+    private void LateUpdate()
+    {
+      if (isGrounded)
+      {
+        return;
+      }
+      // Calculate absolute direction based on current rotateion
+      Vector3 worldDirection = transform.TransformDirection(Vector3.down);
+      Quaternion inverseRotation = Quaternion.Inverse(transform.rotation);
+      Vector3 absoluteDirection = inverseRotation * worldDirection;
+
+      rb.transform.position += absoluteDirection * Time.deltaTime * downwardSpeed;
+    }
+
+/*
     private void Update()
     {
       if (isGrounded)
@@ -60,7 +80,7 @@ public class TetrisBlockMovement : MonoBehaviour
 
       transform.position += absoluteDirection * Time.deltaTime * downwardSpeed;
     }
-
+*/
     public void CheckIndividualPositions()
     {
       if (transform.position.y > stopPosition.transform.position.y)

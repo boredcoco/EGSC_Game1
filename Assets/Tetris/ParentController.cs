@@ -204,7 +204,7 @@ public class ParentController : MonoBehaviour
         tetrisBlockSpawner.UpdateScore();
     }
 
-    private Vector3 findIdealPos(Vector3 currentPos)
+    public Vector3 findIdealPos(Vector3 currentPos)
     {
       Vector3 currentVector = new Vector3(xPositions[0], currentPos.y, zPositions[0]);
       float currentLowest = Vector3.Distance(new Vector3(xPositions[0], currentPos.y, zPositions[0]), currentPos);
