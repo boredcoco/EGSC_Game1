@@ -13,6 +13,13 @@ public class TetrisBlockSpawner : MonoBehaviour
     [SerializeField] private GameObject[] pieces;
     [SerializeField] private GameObject[] spawnPosition;
 
+    // list of names to load from PlayerPrefs (order same as above)
+    [SerializeField] private string[] allTetrisBlockNames;
+
+    // final list of all blocks and their positions from PlayerPrefs
+    private GameObject[] finalPieces;
+    private GameObject[] finalSpawnPositions;
+
     private GameObject currentBlock;
 
     // for layer clearing
@@ -24,6 +31,21 @@ public class TetrisBlockSpawner : MonoBehaviour
     private void Start()
     {
       currentTime = spawnDuration;
+
+      // load playerprefs into game
+      List<GameObject> piecesList = new List<GameObject>();
+      List<GameObject> positionsList = new List<GameObject>();
+
+      for (int i = 0; i < allTetrisBlockNames.Length; i++)
+      {
+        if (PlayerPrefs.HasKey(allTetrisBlockNames[i]))
+        {
+          piecesList.Add(pieces[i]);
+          positionsList.Add(spawnPosition[i]);
+        }
+      }
+      finalPieces = piecesList.ToArray();
+      finalSpawnPositions = positionsList.ToArray();
     }
 
     private void Update()
@@ -44,9 +66,9 @@ public class TetrisBlockSpawner : MonoBehaviour
     private void spawnTetrisBlock()
     {
       // Choose a random index
-      int index = (int) Mathf.Floor(UnityEngine.Random.Range(0f, pieces.Length - 0.1f));
-      GameObject toSpawn = pieces[index];
-      Vector3 spawnPos = spawnPosition[index].transform.position;
+      int index = (int) Mathf.Floor(UnityEngine.Random.Range(0f, finalPieces.Length - 0.1f));
+      GameObject toSpawn = finalPieces[index];
+      Vector3 spawnPos = finalSpawnPositions[index].transform.position;
 
       currentBlock = Instantiate(toSpawn, spawnPos, Quaternion.identity);
     }

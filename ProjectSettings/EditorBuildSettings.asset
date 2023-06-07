@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/JigsawPuzzle/JigsawPuzzleSettings.unity
     guid: bf4758ff5e500430e8649435c36a05f7
   - enabled: 1
-    path: Assets/Scenes/Tetris3D.unity
+    path: Assets/Scenes/Tetris3D/Tetris3D.unity
     guid: 05851f54b58034d34b0813db016be0fa
+  - enabled: 1
+    path: Assets/Scenes/Tetris3D/Tetris3DSettings.unity
+    guid: 5dd663b9b4b4c4dd49442385540e4061
   m_configObjects: {}
