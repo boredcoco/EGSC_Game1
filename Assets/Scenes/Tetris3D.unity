@@ -3273,7 +3273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pause: {fileID: 1676223094}
-  PauseText: {fileID: 0}
   PausePopup: {fileID: 1637949928}
 --- !u!1001 &1676674682
 PrefabInstance:
