@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 53
-    y: 61
+    x: 423
+    y: 202
     width: 1227
     height: 771
   m_ShowMode: 4
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Tetris
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: /Users/mulan/GitHub/EGSC_Game1
+  m_LastProjectPath: /Users/faithchua/EGSC_Game1
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
@@ -387,8 +387,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c623000000000000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c623000000000000926c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -739,9 +739,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1072.1583, y: 462.85654, z: 2.1969252}
+    m_Target: {x: 1168.5293, y: 543.9537, z: -20.500854}
     speed: 2
-    m_Value: {x: 1072.1583, y: 462.85654, z: 2.1969252}
+    m_Value: {x: 1168.5293, y: 543.9537, z: -20.500854}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -792,9 +792,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 861.36755
+    m_Target: 586.6691
     speed: 2
-    m_Value: 861.36755
+    m_Value: 586.6691
   m_Ortho:
     m_Target: 1
     speed: 2
