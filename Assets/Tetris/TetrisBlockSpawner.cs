@@ -46,6 +46,15 @@ public class TetrisBlockSpawner : MonoBehaviour
       }
       finalPieces = piecesList.ToArray();
       finalSpawnPositions = positionsList.ToArray();
+
+      if (finalPieces.Length == 0)
+      {
+        finalPieces = pieces;
+      }
+      if (finalSpawnPositions.Length == 0)
+      {
+        finalSpawnPositions = spawnPosition;
+      }
     }
 
     private void Update()
